@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/SeriousRunnerTest.unity
+- path: Assets/Scenes/MenuGame.unity
   isLoaded: 1
   isActive: 1
