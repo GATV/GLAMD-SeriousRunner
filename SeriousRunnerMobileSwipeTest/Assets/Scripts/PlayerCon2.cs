@@ -157,7 +157,7 @@ public class PlayerCon2 : MonoBehaviour
                 if (swipeType.x > 0.0f)
                 {
                   //right
-                  if (currentLane < Lane.Right && !paused && switchable)
+                  if (currentLane < Lane.Right && switchable && !paused && isAlive)
                   {
                     currentLane++;
                     controller.Move(directionMovements[GetDirection(false)] * laneDistance);
@@ -166,7 +166,7 @@ public class PlayerCon2 : MonoBehaviour
                 else
                 {
                   //left
-                  if (currentLane > Lane.Left && !paused && switchable)
+                  if (currentLane > Lane.Left && !paused && switchable && isAlive)
                   {
                     currentLane--;
                     controller.Move(directionMovements[GetDirection(true)] * laneDistance);
@@ -179,7 +179,7 @@ public class PlayerCon2 : MonoBehaviour
                 if (swipeType.y > 0.0f)
                 {
                   //jump
-                  if (transform.position.y < 0.2)
+                  if (transform.position.y < 0.2 && !paused && isAlive)
                   {
                     jumpTimer = 0.0f;
                     switchable = false;
@@ -202,13 +202,13 @@ public class PlayerCon2 : MonoBehaviour
       buttonPauseClick();
     }
 
-    if (Input.GetKeyDown(KeyCode.LeftArrow) && currentLane > Lane.Left && !paused && switchable)
+    if (Input.GetKeyDown(KeyCode.LeftArrow) && currentLane > Lane.Left && !paused && switchable && isAlive)
     {
       currentLane--;
       controller.Move(directionMovements[GetDirection(true)] * laneDistance);
       //rb.transform.position += GetLaneDirection(true) * laneDistance;
     }
-    else if (Input.GetKeyDown(KeyCode.RightArrow) && currentLane < Lane.Right && !paused && switchable)
+    else if (Input.GetKeyDown(KeyCode.RightArrow) && currentLane < Lane.Right && !paused && switchable && isAlive)
     {
       currentLane++;
       controller.Move(directionMovements[GetDirection(false)] * laneDistance);
@@ -232,7 +232,7 @@ public class PlayerCon2 : MonoBehaviour
     }
 
     //Nieuw mobile
-    if (ButtonLeftTurnClicked && isAllowedTurn && turnDirectionAllowed != "Right")
+    if (ButtonLeftTurnClicked && isAllowedTurn && turnDirectionAllowed != "Right" && !paused && isAlive)
     {
       currentDirection = GetDirection(true);
       transform.Rotate(0, -90, 0);
@@ -243,7 +243,7 @@ public class PlayerCon2 : MonoBehaviour
       ButtonLeft.interactable = false;
       ButtonRight.interactable = false;
     }
-    if (ButtonRightTurnClicked && isAllowedTurn && turnDirectionAllowed != "Left")
+    if (ButtonRightTurnClicked && isAllowedTurn && turnDirectionAllowed != "Left" && !paused && isAlive)
     {
       currentDirection = GetDirection(false);
       transform.Rotate(0, 90, 0);
@@ -270,7 +270,7 @@ public class PlayerCon2 : MonoBehaviour
     }
 
     //Jumping
-    if (Input.GetKeyDown(KeyCode.Space) & transform.position.y < 0.2)
+    if (Input.GetKeyDown(KeyCode.Space) & transform.position.y < 0.2 && !paused && isAlive)
     {
       //animator.Play("Jump");
       jumpTimer = 0.0f;
@@ -368,12 +368,17 @@ public class PlayerCon2 : MonoBehaviour
 
   public void TurnLeft()
   {
+
     ButtonLeftTurnClicked = true;
+
+
   }
 
   public void TurnRight()
   {
+
     ButtonRightTurnClicked = true;
+
   }
 
   Direction GetDirection(bool leftArrow)
@@ -438,7 +443,7 @@ public class PlayerCon2 : MonoBehaviour
 
       Coin game = other.GetComponent<Coin>();
       audio.PlayOneShot(game.coin);
-  
+
       other.gameObject.SetActive(false);
 
       count += 1;
