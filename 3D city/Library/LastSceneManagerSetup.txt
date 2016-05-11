@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Cartoon_City_Mega-Pack/scenes/City_scene_autumn.unity
+  isLoaded: 1
+  isActive: 1
