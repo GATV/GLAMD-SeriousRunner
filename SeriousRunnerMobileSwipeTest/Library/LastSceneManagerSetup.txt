@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/PrefabMaker.unity
+- path: Assets/Scenes/CameraFixen.unity
   isLoaded: 1
   isActive: 1
