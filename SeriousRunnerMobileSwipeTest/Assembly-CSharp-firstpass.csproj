@@ -6,10 +6,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{40D2F501-2F27-46A6-6E12-A729C48ADCA4}</ProjectGuid>
+    <ProjectGuid>{667113D7-B66F-CF65-C71A-CBF2AC855A9E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -45,21 +45,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\CameraCon.cs" />
-     <Compile Include="Assets\Scripts\CameraCon2.cs" />
-     <Compile Include="Assets\Scripts\Coin.cs" />
-     <Compile Include="Assets\Scripts\Enums\DirectionEnum.cs" />
-     <Compile Include="Assets\Scripts\Enums\LaneEnum.cs" />
-     <Compile Include="Assets\Scripts\PlayerCon.cs" />
-     <Compile Include="Assets\Scripts\PlayerCon2.cs" />
-     <Compile Include="Assets\Scripts\Rotator.cs" />
-     <Compile Include="Assets\Scripts\SwipteTesting.cs" />
-     <Compile Include="Assets\Scripts\TileManager.cs" />
-     <Compile Include="Assets\TurningDirectionAllowed.cs" />
-     <Compile Include="Assets\Yurowm\Demo\Scripts\Actions.cs" />
-     <Compile Include="Assets\Yurowm\Demo\Scripts\CharacterPanel.cs" />
-     <Compile Include="Assets\Yurowm\Demo\Scripts\CharacterViewer.cs" />
-     <Compile Include="Assets\Yurowm\Demo\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Plugins\Pixelplacement\iTween\Sample\MoveSample.cs" />
+     <Compile Include="Assets\Plugins\Pixelplacement\iTween\Sample\RotateSample.cs" />
+     <Compile Include="Assets\Plugins\Pixelplacement\iTween\Sample\SampleInfo.cs" />
+     <Compile Include="Assets\Plugins\Pixelplacement\iTween\iTween.cs" />
      <None Include="Assets\Prefabs\HouseMeshes\shaders\bumpedspecmap.shader" />
      <None Include="Assets\ColorfulButtons\Credits.txt" />
      <None Include="Assets\Yurowm\Shaders\SkinShader.shader" />
@@ -70,10 +59,6 @@
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{667113D7-B66F-CF65-C71A-CBF2AC855A9E}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
