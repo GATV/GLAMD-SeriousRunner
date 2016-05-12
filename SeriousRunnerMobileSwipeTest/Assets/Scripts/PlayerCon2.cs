@@ -35,9 +35,6 @@ public class PlayerCon2 : MonoBehaviour
   private float minSwipeDist = 50.0f;
   private float maxSwipeTime = 0.5f;
 
-  //life
-  private int lives;
-  private bool isAlive;
 
   //Jumping
   public float jumpTime;
@@ -76,14 +73,10 @@ public class PlayerCon2 : MonoBehaviour
   //UI
   public Text countText;
   public Text winText;
-  public Text lifeText;
-  public Text deathText;
   public Text timeText;
 
   private int count;
 
-  public Button ButtonLeft;
-  public Button ButtonRight;
   public Button ButtonPause;
 
   public Text pauseButtonText;
@@ -114,17 +107,12 @@ public class PlayerCon2 : MonoBehaviour
     winText.text = "";
     animator = GetComponent<Animator>();
     setSpeed = speed;
-    lives = 2;
     jumpTimer = jumpTime;
-    SetLifeText();
-    isAlive = true;
     switchable = true;
 
-    ButtonLeft = GameObject.FindGameObjectWithTag("LeftTurnButton").GetComponent<Button>();
-    ButtonRight = GameObject.FindGameObjectWithTag("RightTurnButton").GetComponent<Button>();
 
-    ButtonLeft.interactable = false;
-    ButtonRight.interactable = false;
+
+
     pauseButtonText.text = "";
 
     xPosition = transform.position.x;
@@ -172,7 +160,7 @@ public class PlayerCon2 : MonoBehaviour
                 if (swipeType.x > 0.0f)
                 {
                   //right
-                  if (currentLane < Lane.Right && switchable && !paused && isAlive)
+                  if (currentLane < Lane.Right && switchable && !paused)
                   {
                     currentLane++;
                     //controller.Move(directionMovements[GetDirection(false)] * laneDistance);
@@ -200,7 +188,7 @@ public class PlayerCon2 : MonoBehaviour
                 else
                 {
                   //left
-                  if (currentLane > Lane.Left && !paused && switchable && isAlive)
+                  if (currentLane > Lane.Left && !paused && switchable )
                   {
                     currentLane--;
                     //controller.Move(directionMovements[GetDirection(true)] * laneDistance);
@@ -230,7 +218,7 @@ public class PlayerCon2 : MonoBehaviour
                 if (swipeType.y > 0.0f)
                 {
                   //jump
-                  if (transform.position.y < 0.2 && !paused && isAlive)
+                  if (transform.position.y < 0.2 && !paused )
                   {
                     jumpTimer = 0.0f;
                     switchable = false;
@@ -253,7 +241,7 @@ public class PlayerCon2 : MonoBehaviour
       buttonPauseClick();
     }
 
-    if (Input.GetKeyDown(KeyCode.LeftArrow) && currentLane > Lane.Left && !paused && switchable && isAlive)
+    if (Input.GetKeyDown(KeyCode.LeftArrow) && currentLane > Lane.Left && !paused && switchable )
     {
       currentLane--;
       //controller.Move(directionMovements[GetDirection(true)] * laneDistance);
@@ -276,7 +264,7 @@ public class PlayerCon2 : MonoBehaviour
           break;
       }
     }
-    else if (Input.GetKeyDown(KeyCode.RightArrow) && currentLane < Lane.Right && !paused && switchable && isAlive)
+    else if (Input.GetKeyDown(KeyCode.RightArrow) && currentLane < Lane.Right && !paused && switchable )
     {
       currentLane++;
       //controller.Move(directionMovements[GetDirection(false)] * laneDistance);
@@ -339,7 +327,7 @@ public class PlayerCon2 : MonoBehaviour
     }
 
     //Nieuw mobile
-    if (ButtonLeftTurnClicked && isAllowedTurn && turnDirectionAllowed != "Right" && !paused && isAlive)
+    if (ButtonLeftTurnClicked && isAllowedTurn && turnDirectionAllowed != "Right" && !paused )
     {
       currentDirection = GetDirection(true);
       if (turnRotationValue - 90 < -350)
@@ -359,10 +347,9 @@ public class PlayerCon2 : MonoBehaviour
       yPosition = transform.position.z;
 
       ButtonLeftTurnClicked = false;
-      ButtonLeft.interactable = false;
-      ButtonRight.interactable = false;
+
     }
-    if (ButtonRightTurnClicked && isAllowedTurn && turnDirectionAllowed != "Left" && !paused && isAlive)
+    if (ButtonRightTurnClicked && isAllowedTurn && turnDirectionAllowed != "Left" && !paused )
     {
       currentDirection = GetDirection(false);
       // iTween.RotateBy(gameObject, iTween.Hash("x", .25, "easeType", "easeInOutBack", "loopType", "pingPong", "delay", .01));
@@ -386,14 +373,12 @@ public class PlayerCon2 : MonoBehaviour
       yPosition = transform.position.z;
 
       ButtonRightTurnClicked = false;
-      ButtonRight.interactable = false;
-      ButtonLeft.interactable = false;
     }
 
 
 
     //Collisions
-    if (speed < setSpeed & isAlive & !finished)
+    if (speed < setSpeed && !finished)
     {
       Debug.Log(speed.ToString());
       speed += Time.deltaTime;
@@ -404,7 +389,7 @@ public class PlayerCon2 : MonoBehaviour
     }
 
     //Jumping
-    if (Input.GetKeyDown(KeyCode.Space) & transform.position.y < 0.2 && !paused && isAlive)
+    if (Input.GetKeyDown(KeyCode.Space) & transform.position.y < 0.2 && !paused )
     {
       //animator.Play("Jump");
       jumpTimer = 0.0f;
@@ -460,7 +445,7 @@ public class PlayerCon2 : MonoBehaviour
     //}
 
     //Timetracking
-    if (!finished & isAlive)
+    if (!finished )
     {
       gameTime += Time.deltaTime;
 
@@ -569,18 +554,6 @@ public class PlayerCon2 : MonoBehaviour
     //    //}
     //}
 
-    //Restarting (button)
-    //if (!isAlive)
-    //{
-    //    //Uitgecommentarieerd
-    //    //if (Input.GetKeyDown(KeyCode.Space))
-    //    //int xpos = (Screen.width) - (80) / 2;
-    //    //int ypos = (Screen.height) - (40) / 2;
-    //    if (GUI.Button(new Rect(510, 100, 80, 40), "Restart"))
-    //    {
-    //        SceneManager.LoadScene("SeriousRunnerTest");
-    //    }
-    //}
   }
 
   void OnTriggerEnter(Collider other)
@@ -635,8 +608,7 @@ public class PlayerCon2 : MonoBehaviour
       {
         turnDirectionAllowed = "Splits";
       }
-      ButtonLeft.interactable = true;
-      ButtonRight.interactable = true;
+
     }
 
     //Lives
@@ -644,17 +616,8 @@ public class PlayerCon2 : MonoBehaviour
     {
       if (!isInvincible)
       {
-        lives--;
-        SetLifeText();
         speed = 1;
         animator.Play("Damage2");
-      }
-      if (lives == 0)
-      {
-        isAlive = false;
-        speed = 0;
-        animator.Play("Idle");
-        deathText.text = "Game over...";
       }
       other.gameObject.SetActive(false);
     }
@@ -662,17 +625,8 @@ public class PlayerCon2 : MonoBehaviour
     //Automatic turn in split
     if (other.gameObject.CompareTag("SidePiece3") && isAllowedTurn)
     {
-      lives--;
-      SetLifeText();
-      if (lives == 0)
-      {
-        isAlive = false;
-        speed = 0;
-        animator.Play("Idle");
-        deathText.text = "Game over...";
-      }
-      else
-      {
+
+
         int leftOrRight = UnityEngine.Random.Range(0, 1);
         if (leftOrRight == 0)
         {
@@ -712,24 +666,13 @@ public class PlayerCon2 : MonoBehaviour
           xPosition = transform.position.x;
           yPosition = transform.position.z;
         }
-      }
+      
     }
 
     //Automatic turn in right bend
     if (other.gameObject.CompareTag("SidePiece2") && isAllowedTurn && turnDirectionAllowed != "Left")
     {
 
-      lives--;
-      SetLifeText();
-      if (lives == 0)
-      {
-        isAlive = false;
-        speed = 0;
-        animator.Play("Idle");
-        deathText.text = "Game over...";
-      }
-      else
-      {
         currentDirection = GetDirection(false);
         //transform.Rotate(0, 90, 0);
         if (turnRotationValue + 90 > 350)
@@ -747,22 +690,12 @@ public class PlayerCon2 : MonoBehaviour
         xPosition = transform.position.x;
         yPosition = transform.position.z;
       }
-    }
+    
 
     //Automatic turn in left bend
     if (other.gameObject.CompareTag("SidePiece2") && isAllowedTurn && turnDirectionAllowed != "Right")
     {
-      lives--;
-      SetLifeText();
-      if (lives == 0)
-      {
-        isAlive = false;
-        speed = 0;
-        animator.Play("Idle");
-        deathText.text = "Game over...";
-      }
-      else
-      {
+ 
         currentDirection = GetDirection(true);
         //transform.Rotate(0, -90, 0);
         if (turnRotationValue - 90 < -350)
@@ -779,22 +712,12 @@ public class PlayerCon2 : MonoBehaviour
         xPosition = transform.position.x;
         yPosition = transform.position.z;
       }
-    }
+    
 
     //Automatic turn for right barricade
     if (other.gameObject.CompareTag("BarricadeRight") && isAllowedTurn)
     {
-      lives--;
-      SetLifeText();
-      if (lives == 0)
-      {
-        isAlive = false;
-        speed = 0;
-        animator.Play("Idle");
-        deathText.text = "Game over...";
-      }
-      else
-      {
+     
         currentDirection = GetDirection(true);
         //transform.Rotate(0, -90, 0);
         if (turnRotationValue - 90 < -350)
@@ -812,22 +735,12 @@ public class PlayerCon2 : MonoBehaviour
         xPosition = transform.position.x;
         yPosition = transform.position.z;
       }
-    }
+    
 
     //Automatic turn for left barricade
     if (other.gameObject.CompareTag("BarricadeLeft") && isAllowedTurn)
     {
-      lives--;
-      SetLifeText();
-      if (lives == 0)
-      {
-        isAlive = false;
-        speed = 0;
-        animator.Play("Death");
-        deathText.text = "Game over...";
-      }
-      else
-      {
+ 
         currentDirection = GetDirection(false);
         //transform.Rotate(0, 90, 0);
         if (turnRotationValue + 90 > 350)
@@ -844,7 +757,7 @@ public class PlayerCon2 : MonoBehaviour
         //Nieuw
         xPosition = transform.position.x;
         yPosition = transform.position.z;
-      }
+      
     }
 
     //Left trigger after split
@@ -890,10 +803,7 @@ public class PlayerCon2 : MonoBehaviour
     }
   }
 
-  void SetLifeText()
-  {
-    lifeText.text = "Lives: " + lives.ToString();
-  }
+
   void SetCountText()
   {
     countText.text = "Coins: " + count.ToString();
