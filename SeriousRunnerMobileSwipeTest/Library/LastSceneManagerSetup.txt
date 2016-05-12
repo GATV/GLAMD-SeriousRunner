@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/CameraFixen.unity
+- path: Assets/Scenes/SeriousRunnerTest.unity
   isLoaded: 1
   isActive: 1

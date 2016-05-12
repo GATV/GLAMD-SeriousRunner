@@ -16,6 +16,7 @@ public class PlayerCon2 : MonoBehaviour
   public Lane currentLane;
   public float laneDistance;
 
+
   private bool isAllowedTurn;
   private float setSpeed;
 
@@ -23,6 +24,8 @@ public class PlayerCon2 : MonoBehaviour
   //new
   private float xPosition;
   private float yPosition;
+
+  public CameraCon2 cameraControls;
 
   private float turnRotationValue;
   private Vector3 turningVectorValue;
@@ -63,7 +66,7 @@ public class PlayerCon2 : MonoBehaviour
 
   //Random
   public Vector3 turningPosition;
-  public string turnDirectionAllowed;
+  public Turn? turnDirectionAllowed;
   public int positionTurnFix;
   private bool paused = false;
 
@@ -163,7 +166,7 @@ public class PlayerCon2 : MonoBehaviour
                   if (currentLane < Lane.Right && switchable && !paused)
                   {
                     currentLane++;
-                    //controller.Move(directionMovements[GetDirection(false)] * laneDistance);
+                    //controller.Move(directionMovements[GetDirection(Turn.Right)] * laneDistance);
 
                     //new
                     switch (currentDirection)
@@ -191,7 +194,7 @@ public class PlayerCon2 : MonoBehaviour
                   if (currentLane > Lane.Left && !paused && switchable )
                   {
                     currentLane--;
-                    //controller.Move(directionMovements[GetDirection(true)] * laneDistance);
+                    //controller.Move(directionMovements[GetDirection(Turn.Left)] * laneDistance);
                     //Nieuw
                     switch (currentDirection)
                     {
@@ -244,7 +247,7 @@ public class PlayerCon2 : MonoBehaviour
     if (Input.GetKeyDown(KeyCode.LeftArrow) && currentLane > Lane.Left && !paused && switchable )
     {
       currentLane--;
-      //controller.Move(directionMovements[GetDirection(true)] * laneDistance);
+      //controller.Move(directionMovements[GetDirection(Turn.Left)] * laneDistance);
       //rb.transform.position += GetLaneDirection(true) * laneDistance;
 
       //Nieuw            
@@ -267,7 +270,7 @@ public class PlayerCon2 : MonoBehaviour
     else if (Input.GetKeyDown(KeyCode.RightArrow) && currentLane < Lane.Right && !paused && switchable )
     {
       currentLane++;
-      //controller.Move(directionMovements[GetDirection(false)] * laneDistance);
+      //controller.Move(directionMovements[GetDirection(Turn.Right)] * laneDistance);
 
       // rb.transform.position += GetLaneDirection(false) * laneDistance;
 
@@ -289,7 +292,7 @@ public class PlayerCon2 : MonoBehaviour
       }
     }
 
-    if (Input.GetKeyDown(KeyCode.D) && isAllowedTurn && turnDirectionAllowed != "Left")
+    if (Input.GetKeyDown(KeyCode.D) && isAllowedTurn && turnDirectionAllowed != Turn.Left)
     {
       if (turnRotationValue + 90 > 350)
         turnRotationValue = 0.0f;
@@ -298,15 +301,15 @@ public class PlayerCon2 : MonoBehaviour
 
 
       turningVectorValue = new Vector3(0, turnRotationValue, 0);
-      iTween.RotateTo(gameObject, turningVectorValue, 0.5f);
-      currentDirection = GetDirection(false);
+      iTween.RotateTo(gameObject, turningVectorValue, 1.0f);
+      currentDirection = GetDirection(Turn.Right);
       isAllowedTurn = false;
-      TurnMade("Right");
+      TurnMade(Turn.Right);
       //Nieuw
       xPosition = transform.position.x;
       yPosition = transform.position.z;
     }
-    else if (Input.GetKeyDown(KeyCode.A) && isAllowedTurn && turnDirectionAllowed != "Right")
+    else if (Input.GetKeyDown(KeyCode.A) && isAllowedTurn && turnDirectionAllowed != Turn.Right)
     {
       if (turnRotationValue - 90 < -350)
         turnRotationValue = 0.0f;
@@ -315,11 +318,11 @@ public class PlayerCon2 : MonoBehaviour
 
 
       turningVectorValue = new Vector3(0, turnRotationValue, 0);
-      iTween.RotateTo(gameObject, turningVectorValue, 0.5f);
+      iTween.RotateTo(gameObject, turningVectorValue, 1.0f);
       //transform.Rotate(0, -90, 0);    
-      currentDirection = GetDirection(true);
+      currentDirection = GetDirection(Turn.Left);
       isAllowedTurn = false;
-      TurnMade("Left");
+      TurnMade(Turn.Left);
       //Nieuw
       xPosition = transform.position.x;
       yPosition = transform.position.z;
@@ -327,9 +330,9 @@ public class PlayerCon2 : MonoBehaviour
     }
 
     //Nieuw mobile
-    if (ButtonLeftTurnClicked && isAllowedTurn && turnDirectionAllowed != "Right" && !paused )
+    if (ButtonLeftTurnClicked && isAllowedTurn && turnDirectionAllowed != Turn.Right && !paused )
     {
-      currentDirection = GetDirection(true);
+      currentDirection = GetDirection(Turn.Left);
       if (turnRotationValue - 90 < -350)
         turnRotationValue = 0.0f;
       else
@@ -337,10 +340,10 @@ public class PlayerCon2 : MonoBehaviour
 
 
       turningVectorValue = new Vector3(0, turnRotationValue, 0);
-      iTween.RotateTo(gameObject, turningVectorValue, 0.5f);
+      iTween.RotateTo(gameObject, turningVectorValue, 1.0f);
       //iTween.RotateBy(gameObject, iTween.Hash("x", .25, "easeType", "easeInOutBack", "loopType", "pingPong", "delay", .01));
       isAllowedTurn = false;
-      TurnMade("Left");
+      TurnMade(Turn.Left);
 
       //Nieuw
       xPosition = transform.position.x;
@@ -349,9 +352,9 @@ public class PlayerCon2 : MonoBehaviour
       ButtonLeftTurnClicked = false;
 
     }
-    if (ButtonRightTurnClicked && isAllowedTurn && turnDirectionAllowed != "Left" && !paused )
+    if (ButtonRightTurnClicked && isAllowedTurn && turnDirectionAllowed != Turn.Left && !paused )
     {
-      currentDirection = GetDirection(false);
+      currentDirection = GetDirection(Turn.Right);
       // iTween.RotateBy(gameObject, iTween.Hash("x", .25, "easeType", "easeInOutBack", "loopType", "pingPong", "delay", .01));
       //transform.Rotate(0, 90, 0);
       if (turnRotationValue + 90 > 350)
@@ -361,11 +364,11 @@ public class PlayerCon2 : MonoBehaviour
 
 
       turningVectorValue = new Vector3(0, turnRotationValue, 0);
-      iTween.RotateTo(gameObject, turningVectorValue, 0.5f);
+      iTween.RotateTo(gameObject, turningVectorValue, 1.0f);
 
       isAllowedTurn = false;
 
-      TurnMade("Right");
+      TurnMade(Turn.Right);
 
 
       //Nieuw
@@ -515,18 +518,10 @@ public class PlayerCon2 : MonoBehaviour
 
   }
 
-  Direction GetDirection(bool leftArrow)
+  Direction GetDirection(Turn t)
   {
-    switch (currentDirection)
-    {
-      case Direction.North: return leftArrow ? Direction.West : Direction.East;
-      case Direction.East: return leftArrow ? Direction.North : Direction.South;
-      case Direction.South: return leftArrow ? Direction.East : Direction.West;
-      case Direction.West: return leftArrow ? Direction.South : Direction.North;
-      default: throw new Exception("Missing Direction");
-    }
+    return (Direction)(((int)currentDirection + (t == Turn.Left ? 3 : 1)) % 4);
   }
-
 
   //bool togglePause()
   //{
@@ -598,15 +593,15 @@ public class PlayerCon2 : MonoBehaviour
       other.gameObject.SetActive(false);
       if (other.gameObject.layer == 8)
       {
-        turnDirectionAllowed = "Right";
+        turnDirectionAllowed = Turn.Right;
       }
       else if (other.gameObject.layer == 9)
       {
-        turnDirectionAllowed = "Left";
+        turnDirectionAllowed = Turn.Left;
       }
       else
       {
-        turnDirectionAllowed = "Splits";
+        turnDirectionAllowed = null;
       }
 
     }
@@ -615,8 +610,10 @@ public class PlayerCon2 : MonoBehaviour
     if (other.gameObject.CompareTag("Obstacle"))
     {
       if (!isInvincible)
-      {
-        speed = 1;
+      { 
+        speed = 6;
+        cameraControls.ShakeCamera();
+        
         animator.Play("Damage2");
       }
       other.gameObject.SetActive(false);
@@ -630,7 +627,7 @@ public class PlayerCon2 : MonoBehaviour
         int leftOrRight = UnityEngine.Random.Range(0, 1);
         if (leftOrRight == 0)
         {
-          currentDirection = GetDirection(false);
+          currentDirection = GetDirection(Turn.Right);
           //transform.Rotate(0, 90, 0);
           if (turnRotationValue + 90 > 350)
             turnRotationValue = 0.0f;
@@ -639,9 +636,9 @@ public class PlayerCon2 : MonoBehaviour
 
 
           turningVectorValue = new Vector3(0, turnRotationValue, 0);
-          iTween.RotateTo(gameObject, turningVectorValue, 0.5f);
+          iTween.RotateTo(gameObject, turningVectorValue, 1.0f);
           isAllowedTurn = false;
-          TurnMade("Right");
+          TurnMade(Turn.Right);
 
           //Nieuw
           xPosition = transform.position.x;
@@ -649,7 +646,7 @@ public class PlayerCon2 : MonoBehaviour
         }
         else
         {
-          currentDirection = GetDirection(true);
+          currentDirection = GetDirection(Turn.Left);
           //transform.Rotate(0, -90, 0);
           if (turnRotationValue - 90 < -350)
             turnRotationValue = 0.0f;
@@ -658,9 +655,9 @@ public class PlayerCon2 : MonoBehaviour
 
 
           turningVectorValue = new Vector3(0, turnRotationValue, 0);
-          iTween.RotateTo(gameObject, turningVectorValue, 0.5f);
+          iTween.RotateTo(gameObject, turningVectorValue, 1.0f);
           isAllowedTurn = false;
-          TurnMade("Left");
+          TurnMade(Turn.Left);
 
           //Nieuw
           xPosition = transform.position.x;
@@ -670,10 +667,10 @@ public class PlayerCon2 : MonoBehaviour
     }
 
     //Automatic turn in right bend
-    if (other.gameObject.CompareTag("SidePiece2") && isAllowedTurn && turnDirectionAllowed != "Left")
+    if (other.gameObject.CompareTag("SidePiece2") && isAllowedTurn && turnDirectionAllowed != Turn.Left)
     {
 
-        currentDirection = GetDirection(false);
+        currentDirection = GetDirection(Turn.Right);
         //transform.Rotate(0, 90, 0);
         if (turnRotationValue + 90 > 350)
           turnRotationValue = 0.0f;
@@ -682,9 +679,9 @@ public class PlayerCon2 : MonoBehaviour
 
 
         turningVectorValue = new Vector3(0, turnRotationValue, 0);
-        iTween.RotateTo(gameObject, turningVectorValue, 0.5f);
+        iTween.RotateTo(gameObject, turningVectorValue, 1.0f);
         isAllowedTurn = false;
-        TurnMade("Right");
+        TurnMade(Turn.Right);
 
         //Nieuw
         xPosition = transform.position.x;
@@ -693,10 +690,10 @@ public class PlayerCon2 : MonoBehaviour
     
 
     //Automatic turn in left bend
-    if (other.gameObject.CompareTag("SidePiece2") && isAllowedTurn && turnDirectionAllowed != "Right")
+    if (other.gameObject.CompareTag("SidePiece2") && isAllowedTurn && turnDirectionAllowed != Turn.Right)
     {
  
-        currentDirection = GetDirection(true);
+        currentDirection = GetDirection(Turn.Left);
         //transform.Rotate(0, -90, 0);
         if (turnRotationValue - 90 < -350)
           turnRotationValue = 0.0f;
@@ -705,9 +702,9 @@ public class PlayerCon2 : MonoBehaviour
 
 
         turningVectorValue = new Vector3(0, turnRotationValue, 0);
-        iTween.RotateTo(gameObject, turningVectorValue, 0.5f);
+        iTween.RotateTo(gameObject, turningVectorValue, 1.0f);
         isAllowedTurn = false;
-        TurnMade("Left");
+        TurnMade(Turn.Left);
         //Nieuw
         xPosition = transform.position.x;
         yPosition = transform.position.z;
@@ -718,7 +715,7 @@ public class PlayerCon2 : MonoBehaviour
     if (other.gameObject.CompareTag("BarricadeRight") && isAllowedTurn)
     {
      
-        currentDirection = GetDirection(true);
+        currentDirection = GetDirection(Turn.Left);
         //transform.Rotate(0, -90, 0);
         if (turnRotationValue - 90 < -350)
           turnRotationValue = 0.0f;
@@ -727,9 +724,9 @@ public class PlayerCon2 : MonoBehaviour
 
 
         turningVectorValue = new Vector3(0, turnRotationValue, 0);
-        iTween.RotateTo(gameObject, turningVectorValue, 0.5f);
+        iTween.RotateTo(gameObject, turningVectorValue, 1.0f);
         isAllowedTurn = false;
-        TurnMade("Left");
+        TurnMade(Turn.Left);
 
         //Nieuw
         xPosition = transform.position.x;
@@ -741,7 +738,7 @@ public class PlayerCon2 : MonoBehaviour
     if (other.gameObject.CompareTag("BarricadeLeft") && isAllowedTurn)
     {
  
-        currentDirection = GetDirection(false);
+        currentDirection = GetDirection(Turn.Right);
         //transform.Rotate(0, 90, 0);
         if (turnRotationValue + 90 > 350)
           turnRotationValue = 0.0f;
@@ -750,9 +747,9 @@ public class PlayerCon2 : MonoBehaviour
 
 
         turningVectorValue = new Vector3(0, turnRotationValue, 0);
-        iTween.RotateTo(gameObject, turningVectorValue, 0.5f);
+        iTween.RotateTo(gameObject, turningVectorValue, 1.0f);
         isAllowedTurn = false;
-        TurnMade("Right");
+        TurnMade(Turn.Right);
 
         //Nieuw
         xPosition = transform.position.x;
@@ -789,16 +786,14 @@ public class PlayerCon2 : MonoBehaviour
     if (other.gameObject.CompareTag("SpeedBoost"))
     {
       speed += 4;
-      Destroy(other.gameObject);
-      //other.gameObject.SetActive(false);
+      other.gameObject.SetActive(false);
     }
 
     //Shield power-up
     if (other.gameObject.CompareTag("InvincibilityBoost"))
     {
       isInvincible = true;
-      Destroy(other.gameObject);
-      //other.gameObject.SetActive(false);
+      other.gameObject.SetActive(false);
       shieldInstance = (GameObject)Instantiate(shieldPrefab, new Vector3(transform.position.x, transform.position.y + 3, transform.position.z), Quaternion.identity);
     }
   }
@@ -809,9 +804,9 @@ public class PlayerCon2 : MonoBehaviour
     countText.text = "Coins: " + count.ToString();
   }
 
-  void TurnMade(string key)
+  void TurnMade(Turn t)
   {
-    if (key == "Left")
+    if (t == Turn.Left)
     {
       if (currentDirection == Direction.West)
       {
@@ -899,7 +894,7 @@ public class PlayerCon2 : MonoBehaviour
         }
       }
     }
-    else if (key == "Right")
+    else if (t == Turn.Right)
     {
       if (currentDirection == Direction.East)
       {
