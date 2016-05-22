@@ -66,7 +66,9 @@ public class PlayerCon2 : MonoBehaviour
     //private bool isInvincible;
     public bool isInvincible;
   private float invincibleTime;
-  private GameObject shieldInstance;
+    //Nieuw
+    //private GameObject shieldInstance;
+    public GameObject shieldInstance;
   private float speedTimer;
 
   //Obstacles
@@ -480,6 +482,7 @@ public class PlayerCon2 : MonoBehaviour
       if (speedTimer >= speedBoostTime)
       {
         speed = setSpeed;
+                speedTimer = 0;
       }
     }
 
@@ -755,70 +758,71 @@ public class PlayerCon2 : MonoBehaviour
     //  }
     
 
-    //Automatic turn for left barricade
-    if (other.gameObject.CompareTag("BarricadeLeft") && isAllowedTurn)
-    {
+    ////Automatic turn for left barricade
+    //if (other.gameObject.CompareTag("BarricadeLeft") && isAllowedTurn)
+    //{
  
-        currentDirection = GetDirection(false);
-        //transform.Rotate(0, 90, 0);
-        if (turnRotationValue + 90 > 350)
-          turnRotationValue = 0.0f;
-        else
-          turnRotationValue += 90.0f;
+    //    currentDirection = GetDirection(false);
+    //    //transform.Rotate(0, 90, 0);
+    //    if (turnRotationValue + 90 > 350)
+    //      turnRotationValue = 0.0f;
+    //    else
+    //      turnRotationValue += 90.0f;
 
 
-        turningVectorValue = new Vector3(0, turnRotationValue, 0);
-        iTween.RotateTo(gameObject, turningVectorValue, 0.5f);
-        isAllowedTurn = false;
-        TurnMade("Right");
+    //    turningVectorValue = new Vector3(0, turnRotationValue, 0);
+    //    iTween.RotateTo(gameObject, turningVectorValue, 0.5f);
+    //    isAllowedTurn = false;
+    //    TurnMade("Right");
 
-        //Nieuw
-        xPosition = transform.position.x;
-        yPosition = transform.position.z;
+    //    //Nieuw
+    //    xPosition = transform.position.x;
+    //    yPosition = transform.position.z;
       
-    }
+    //}
 
     //Left trigger after split
-    if (other.gameObject.CompareTag("TriggerLeft1"))
-    {
-      Instantiate(barricadeRight, new Vector3(3f, 0f, 72.5f), new Quaternion(0f, 0f, 0f, 0f));
-    }
+    //if (other.gameObject.CompareTag("TriggerLeft1"))
+    //{
+    //        Debug.Log("Ding");
+    //  Instantiate(barricadeRight, new Vector3(3f, 0f, 72.5f), new Quaternion(0f, 0f, 0f, 0f));
+    //}
 
     //Left trigger after split
-    if (other.gameObject.CompareTag("TriggerRight1"))
-    {
-      Instantiate(barricadeLeft, new Vector3(-3f, 0f, 72.5f), new Quaternion(0f, 0f, 0f, 0f));
-    }
+    //if (other.gameObject.CompareTag("TriggerRight1"))
+    //{
+    //  Instantiate(barricadeLeft, new Vector3(-3f, 0f, 72.5f), new Quaternion(0f, 0f, 0f, 0f));
+    //}
 
     //Left trigger after split
-    if (other.gameObject.CompareTag("TriggerLeft2"))
-    {
-      Instantiate(barricadeRight, new Vector3(45f, 0f, 198.5f), new Quaternion(0f, 0f, 0f, 0f));
-    }
+    //if (other.gameObject.CompareTag("TriggerLeft2"))
+    //{
+    //  Instantiate(barricadeRight, new Vector3(45f, 0f, 198.5f), new Quaternion(0f, 0f, 0f, 0f));
+    //}
 
     //Left trigger after split
-    if (other.gameObject.CompareTag("TriggerRight2"))
-    {
-      Instantiate(barricadeLeft, new Vector3(39f, 0f, 198.5f), new Quaternion(0f, 0f, 0f, 0f));
-    }
+    //if (other.gameObject.CompareTag("TriggerRight2"))
+    //{
+    //  Instantiate(barricadeLeft, new Vector3(39f, 0f, 198.5f), new Quaternion(0f, 0f, 0f, 0f));
+    //}
 
 
     //Speed power-up
-    if (other.gameObject.CompareTag("SpeedBoost"))
-    {
-      speed += 4;
-      Destroy(other.gameObject);
-      //other.gameObject.SetActive(false);
-    }
+    //if (other.gameObject.CompareTag("SpeedBoost"))
+    //{
+    //  speed += 4;
+    //  Destroy(other.gameObject);
+    //  //other.gameObject.SetActive(false);
+    //}
 
     //Shield power-up
-    if (other.gameObject.CompareTag("InvincibilityBoost"))
-    {
-      isInvincible = true;
-      Destroy(other.gameObject);
-      //other.gameObject.SetActive(false);
-      shieldInstance = (GameObject)Instantiate(shieldPrefab, new Vector3(transform.position.x, transform.position.y + 3, transform.position.z), Quaternion.identity);
-    }
+    //if (other.gameObject.CompareTag("InvincibilityBoost"))
+    //{
+    //  isInvincible = true;
+    //  Destroy(other.gameObject);
+    //  //other.gameObject.SetActive(false);
+    //  shieldInstance = (GameObject)Instantiate(shieldPrefab, new Vector3(transform.position.x, transform.position.y + 3, transform.position.z), Quaternion.identity);
+    //}
   }
 
 
