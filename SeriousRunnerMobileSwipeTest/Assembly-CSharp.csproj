@@ -50,7 +50,6 @@
      <Compile Include="Assets\Scripts\Coin.cs" />
      <Compile Include="Assets\Scripts\Enums\DirectionEnum.cs" />
      <Compile Include="Assets\Scripts\Enums\LaneEnum.cs" />
-     <Compile Include="Assets\Scripts\Enums\TurnEnum.cs" />
      <Compile Include="Assets\Scripts\PlayerCon.cs" />
      <Compile Include="Assets\Scripts\PlayerCon2.cs" />
      <Compile Include="Assets\Scripts\Rotator.cs" />
