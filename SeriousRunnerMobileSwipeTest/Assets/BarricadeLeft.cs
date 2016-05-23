@@ -17,11 +17,9 @@ public class BarricadeLeft : MonoBehaviour {
 
     void OnTriggerEnter()
     {
-        Debug.Log("Hit trigger");
         Vector3 turningVectorValue;
 
-        if (playerCon.isAllowedTurn// & playerCon.turnDirectionAllowed != "Left")
-            )
+        if (playerCon.isAllowedTurn && playerCon.turnDirectionAllowed != "Left")
         {
             playerCon.currentDirection = playerCon.GetDirection(false);
             if (playerCon.turnRotationValue + 90 > 350)

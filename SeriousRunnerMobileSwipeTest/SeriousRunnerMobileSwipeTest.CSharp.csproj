@@ -73,6 +73,7 @@
     <Compile Include="Assets\End.cs" />
     <Compile Include="Assets\EnterTrigger.cs" />
     <Compile Include="Assets\LaneTriggerExit.cs" />
+    <Compile Include="Assets\Runner\Scripts\Behavior.cs" />
     <Compile Include="Assets\Scripts\CameraCon.cs" />
     <Compile Include="Assets\Scripts\CameraCon2.cs" />
     <Compile Include="Assets\Scripts\Coin.cs" />
@@ -84,25 +85,15 @@
     <Compile Include="Assets\Scripts\Rotator.cs" />
     <Compile Include="Assets\Scripts\SwipteTesting.cs" />
     <Compile Include="Assets\Scripts\TileManager.cs" />
-    <Compile Include="Assets\ShieldPowerUp.cs" />
     <Compile Include="Assets\SidePiece2.cs" />
     <Compile Include="Assets\SidePiece3.cs" />
-    <Compile Include="Assets\SpeedPowerUp.cs" />
-    <Compile Include="Assets\TriggerLeft1.cs" />
-    <Compile Include="Assets\TriggerLeft2.cs" />
-    <Compile Include="Assets\TriggerRight1.cs" />
-    <Compile Include="Assets\TriggerRight2.cs" />
     <Compile Include="Assets\TurningDirectionAllowed.cs" />
-    <Compile Include="Assets\Yurowm\Demo\Scripts\Actions.cs" />
-    <Compile Include="Assets\Yurowm\Demo\Scripts\CharacterPanel.cs" />
-    <Compile Include="Assets\Yurowm\Demo\Scripts\CharacterViewer.cs" />
-    <Compile Include="Assets\Yurowm\Demo\Scripts\PlayerController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ColorfulButtons\Credits.txt" />
+    <None Include="Assets\Pk Acro\Animation Times\PK_Acro.txt" />
     <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
     <None Include="Assets\Prefabs\HouseMeshes\shaders\bumpedspecmap.shader" />
-    <None Include="Assets\Yurowm\Shaders\SkinShader.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
