@@ -4,5 +4,6 @@ using System.Collections;
 public enum Turn
 {
   Left,
-  Right
+  Right,
+  Splits
 }
