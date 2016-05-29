@@ -76,13 +76,13 @@
      <Compile Include="Assets\Scripts\SwipteTesting.cs" />
      <Compile Include="Assets\Scripts\UI Script\GameMenu.cs" />
      <Compile Include="Assets\Scripts\UI Script\GameMenu\FadeInAndOut.cs" />
+     <Compile Include="Assets\Scripts\UI Script\GameMenu\MenuCamController.cs" />
      <Compile Include="Assets\TileManager.cs" />
      <Compile Include="Assets\Yurowm\Demo\Scripts\Actions.cs" />
      <Compile Include="Assets\Yurowm\Demo\Scripts\CharacterPanel.cs" />
      <Compile Include="Assets\Yurowm\Demo\Scripts\CharacterViewer.cs" />
      <Compile Include="Assets\Yurowm\Demo\Scripts\PlayerController.cs" />
      <None Include="Assets\Prefabs\HouseMeshes\shaders\bumpedspecmap.shader" />
-     <None Include="Assets\ColorfulButtons\Credits.txt" />
      <None Include="Assets\Prefabs\Skyboxes\_skybox info.txt" />
      <None Include="Assets\Yurowm\Shaders\SkinShader.shader" />
      <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />

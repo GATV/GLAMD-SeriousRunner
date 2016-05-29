@@ -6,6 +6,10 @@ public class EnterTrigger : MonoBehaviour {
     // Use this for initialization
     void Start () {
         playerCon = GameObject.Find("SeriousRunnerGirl").GetComponent<PlayerCon2>();
+    if (playerCon == null)
+    {
+      playerCon = GameObject.Find("").GetComponent<PlayerCon2>();
+    }
     }
 	
 	// Update is called once per frame

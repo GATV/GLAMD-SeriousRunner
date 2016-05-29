@@ -396,7 +396,7 @@ public class PlayerCon2 : MonoBehaviour
     //Jumping
     if (Input.GetKeyDown(KeyCode.Space) & transform.position.y < 0.2 && !paused )
     {
-      //animator.Play("Jump");
+      animator.Play("Jump");
       jumpTimer = 0.0f;
       switchable = false;
     }
@@ -431,11 +431,11 @@ public class PlayerCon2 : MonoBehaviour
 
     if (currentDirection == Direction.North | currentDirection == Direction.South)
     {
-      posLaneSwitch.x = Mathf.MoveTowards(posLaneSwitch.x, xPosition, speed * Time.deltaTime);
+      posLaneSwitch.x = Mathf.MoveTowards(posLaneSwitch.x, xPosition, (speed * 14) * Time.deltaTime);
     }
     else
     {
-      posLaneSwitch.z = Mathf.MoveTowards(posLaneSwitch.z, yPosition, speed * Time.deltaTime);
+      posLaneSwitch.z = Mathf.MoveTowards(posLaneSwitch.z, yPosition, (speed* 14 )* Time.deltaTime);
     }
 
     transform.position = posLaneSwitch;
