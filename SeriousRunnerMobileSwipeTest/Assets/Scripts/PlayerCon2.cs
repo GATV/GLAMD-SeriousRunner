@@ -952,13 +952,13 @@ public class PlayerCon2 : MonoBehaviour
         }
         else if (transform.position.x - turningPosition.x > 2.0f)
         {
-          positionTurnFix = Convert.ToInt32(turningPosition.z);
+          positionTurnFix = Convert.ToInt32(turningPosition.x);
           transform.position = new Vector3(positionTurnFix + 3, transform.position.y, transform.position.z);
           currentLane = Lane.Middle;
         }
         else
         {
-          positionTurnFix = Convert.ToInt32(turningPosition.z);
+          positionTurnFix = Convert.ToInt32(turningPosition.x);
           transform.position = new Vector3(positionTurnFix + 1, transform.position.y, transform.position.z);
           currentLane = Lane.Right;
         }
