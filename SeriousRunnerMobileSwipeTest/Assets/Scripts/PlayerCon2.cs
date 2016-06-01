@@ -38,7 +38,7 @@ public class PlayerCon2 : MonoBehaviour
   private float minSwipeDist = 50.0f;
   private float maxSwipeTime = 0.5f;
 
-  
+
   //Jumping
   public float jumpTime;
   public float jumpHeight;
@@ -193,7 +193,7 @@ public class PlayerCon2 : MonoBehaviour
                 else
                 {
                   //left
-                  if (currentLane > Lane.Left && !paused && switchable )
+                  if (currentLane > Lane.Left && !paused && switchable)
                   {
                     currentLane--;
                     //controller.Move(directionMovements[GetDirection(Turn.Left)] * laneDistance);
@@ -223,7 +223,7 @@ public class PlayerCon2 : MonoBehaviour
                 if (swipeType.y > 0.0f)
                 {
                   //jump
-                  if (transform.position.y < 0.2 && !paused )
+                  if (transform.position.y < 0.2 && !paused)
                   {
                     jumpTimer = 0.0f;
                     switchable = false;
@@ -246,7 +246,7 @@ public class PlayerCon2 : MonoBehaviour
       buttonPauseClick();
     }
 
-    if (Input.GetKeyDown(KeyCode.LeftArrow) && currentLane > Lane.Left && !paused && switchable )
+    if (Input.GetKeyDown(KeyCode.LeftArrow) && currentLane > Lane.Left && !paused && switchable)
     {
       currentLane--;
       //controller.Move(directionMovements[GetDirection(Turn.Left)] * laneDistance);
@@ -269,7 +269,7 @@ public class PlayerCon2 : MonoBehaviour
           break;
       }
     }
-    else if (Input.GetKeyDown(KeyCode.RightArrow) && currentLane < Lane.Right && !paused && switchable )
+    else if (Input.GetKeyDown(KeyCode.RightArrow) && currentLane < Lane.Right && !paused && switchable)
     {
       currentLane++;
       //controller.Move(directionMovements[GetDirection(Turn.Right)] * laneDistance);
@@ -332,7 +332,7 @@ public class PlayerCon2 : MonoBehaviour
     }
 
     //Nieuw mobile
-    if (ButtonLeftTurnClicked && isAllowedTurn && turnDirectionAllowed != Turn.Right && !paused )
+    if (ButtonLeftTurnClicked && isAllowedTurn && turnDirectionAllowed != Turn.Right && !paused)
     {
       currentDirection = GetDirection(Turn.Left);
       if (turnRotationValue - 90 < -350)
@@ -354,7 +354,7 @@ public class PlayerCon2 : MonoBehaviour
       ButtonLeftTurnClicked = false;
 
     }
-    if (ButtonRightTurnClicked && isAllowedTurn && turnDirectionAllowed != Turn.Left && !paused )
+    if (ButtonRightTurnClicked && isAllowedTurn && turnDirectionAllowed != Turn.Left && !paused)
     {
       currentDirection = GetDirection(Turn.Right);
       // iTween.RotateBy(gameObject, iTween.Hash("x", .25, "easeType", "easeInOutBack", "loopType", "pingPong", "delay", .01));
@@ -394,9 +394,9 @@ public class PlayerCon2 : MonoBehaviour
     }
 
     //Jumping
-    if (Input.GetKeyDown(KeyCode.Space) & transform.position.y < 0.2 && !paused )
+    if (Input.GetKeyDown(KeyCode.Space) & transform.position.y < 0.2 && !paused)
     {
-      animator.Play("Jump");
+      //animator.Play("Jump");
       jumpTimer = 0.0f;
       switchable = false;
     }
@@ -431,15 +431,15 @@ public class PlayerCon2 : MonoBehaviour
 
     if (currentDirection == Direction.North | currentDirection == Direction.South)
     {
-      posLaneSwitch.x = Mathf.MoveTowards(posLaneSwitch.x, xPosition, (speed * 14) * Time.deltaTime);
+      posLaneSwitch.x = Mathf.MoveTowards(posLaneSwitch.x, xPosition, speed * Time.deltaTime);
     }
     else
     {
-      posLaneSwitch.z = Mathf.MoveTowards(posLaneSwitch.z, yPosition, (speed* 14 )* Time.deltaTime);
+      posLaneSwitch.z = Mathf.MoveTowards(posLaneSwitch.z, yPosition, speed * Time.deltaTime);
     }
 
     transform.position = posLaneSwitch;
-    
+
     animator.SetFloat("Speed", speed);
 
     //Werkt niet. Misschien later.
@@ -450,7 +450,7 @@ public class PlayerCon2 : MonoBehaviour
     //}
 
     //Timetracking
-    if (!finished )
+    if (!finished)
     {
       gameTime += Time.deltaTime;
 
@@ -617,7 +617,7 @@ public class PlayerCon2 : MonoBehaviour
     //  { 
     //    speed = 6;
     //    cameraControls.ShakeCamera();
-        
+
     //    animator.Play("Damage2");
     //  }
     //  other.gameObject.SetActive(false);
@@ -667,7 +667,7 @@ public class PlayerCon2 : MonoBehaviour
     //      xPosition = transform.position.x;
     //      yPosition = transform.position.z;
     //    }
-      
+
     //}
 
     ////Automatic turn in right bend
@@ -691,12 +691,12 @@ public class PlayerCon2 : MonoBehaviour
     //    xPosition = transform.position.x;
     //    yPosition = transform.position.z;
     //  }
-    
+
 
     ////Automatic turn in left bend
     //if (other.gameObject.CompareTag("SidePiece2") && isAllowedTurn && turnDirectionAllowed != Turn.Right)
     //{
- 
+
     //    currentDirection = GetDirection(Turn.Left);
     //    //transform.Rotate(0, -90, 0);
     //    if (turnRotationValue - 90 < -350)
@@ -713,12 +713,12 @@ public class PlayerCon2 : MonoBehaviour
     //    xPosition = transform.position.x;
     //    yPosition = transform.position.z;
     //  }
-    
+
 
     ////Automatic turn for right barricade
     //if (other.gameObject.CompareTag("BarricadeRight") && isAllowedTurn)
     //{
-     
+
     //    currentDirection = GetDirection(Turn.Left);
     //    //transform.Rotate(0, -90, 0);
     //    if (turnRotationValue - 90 < -350)
@@ -736,12 +736,12 @@ public class PlayerCon2 : MonoBehaviour
     //    xPosition = transform.position.x;
     //    yPosition = transform.position.z;
     //  }
-    
+
 
     ////Automatic turn for left barricade
     //if (other.gameObject.CompareTag("BarricadeLeft") && isAllowedTurn)
     //{
- 
+
     //    currentDirection = GetDirection(Turn.Right);
     //    //transform.Rotate(0, 90, 0);
     //    if (turnRotationValue + 90 > 350)
@@ -758,7 +758,7 @@ public class PlayerCon2 : MonoBehaviour
     //    //Nieuw
     //    xPosition = transform.position.x;
     //    yPosition = transform.position.z;
-      
+
     //}
 
     ////Left trigger after split
