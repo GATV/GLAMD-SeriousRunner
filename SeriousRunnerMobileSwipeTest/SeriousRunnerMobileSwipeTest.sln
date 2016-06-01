@@ -1,9 +1,11 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{85C7AA18-EDC0-72C7-223A-C9A4435A80D6}") = "SeriousRunnerMobileSwipeTest", "Assembly-CSharp-firstpass.csproj", "{667113D7-B66F-CF65-C71A-CBF2AC855A9E}"
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeriousRunnerMobileSwipeTest.CSharp.Plugins", "SeriousRunnerMobileSwipeTest.CSharp.Plugins.csproj", "{00EB4B3A-7818-09A0-32D0-1C808264B981}"
 EndProject
-Project("{85C7AA18-EDC0-72C7-223A-C9A4435A80D6}") = "SeriousRunnerMobileSwipeTest", "Assembly-CSharp.csproj", "{40D2F501-2F27-46A6-6E12-A729C48ADCA4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeriousRunnerMobileSwipeTest.CSharp", "SeriousRunnerMobileSwipeTest.CSharp.csproj", "{AA6095D3-FF44-944D-1B91-340EF08953C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeriousRunnerMobileSwipeTest.CSharp.Editor", "SeriousRunnerMobileSwipeTest.CSharp.Editor.csproj", "{0960D92A-5D0D-28A8-7FC8-FC40D71B8D4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,19 +13,20 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{667113D7-B66F-CF65-C71A-CBF2AC855A9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{667113D7-B66F-CF65-C71A-CBF2AC855A9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{667113D7-B66F-CF65-C71A-CBF2AC855A9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{667113D7-B66F-CF65-C71A-CBF2AC855A9E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{40D2F501-2F27-46A6-6E12-A729C48ADCA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{40D2F501-2F27-46A6-6E12-A729C48ADCA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{40D2F501-2F27-46A6-6E12-A729C48ADCA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{40D2F501-2F27-46A6-6E12-A729C48ADCA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00EB4B3A-7818-09A0-32D0-1C808264B981}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00EB4B3A-7818-09A0-32D0-1C808264B981}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00EB4B3A-7818-09A0-32D0-1C808264B981}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00EB4B3A-7818-09A0-32D0-1C808264B981}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA6095D3-FF44-944D-1B91-340EF08953C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA6095D3-FF44-944D-1B91-340EF08953C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA6095D3-FF44-944D-1B91-340EF08953C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA6095D3-FF44-944D-1B91-340EF08953C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0960D92A-5D0D-28A8-7FC8-FC40D71B8D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0960D92A-5D0D-28A8-7FC8-FC40D71B8D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0960D92A-5D0D-28A8-7FC8-FC40D71B8D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0960D92A-5D0D-28A8-7FC8-FC40D71B8D4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal
