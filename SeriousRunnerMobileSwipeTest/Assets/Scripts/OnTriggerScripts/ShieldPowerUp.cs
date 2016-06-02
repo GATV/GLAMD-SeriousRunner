@@ -17,6 +17,6 @@ public class ShieldPowerUp : MonoBehaviour {
     {
         playerCon.isInvincible = true;
         Destroy(gameObject);
-        playerCon.shieldInstance = (GameObject)Instantiate(playerCon.shieldPrefab, new Vector3(transform.position.x, transform.position.y + 3, transform.position.z), Quaternion.identity);
+        playerCon.shieldInstance = (GameObject)Instantiate(playerCon.shieldPrefab, new Vector3(playerCon.transform.position.x, playerCon.transform.position.y, playerCon.transform.position.z), Quaternion.identity);
     }
 }

@@ -26,8 +26,11 @@ public class Coin : MonoBehaviour {
   {
     audio.PlayOneShot(coin);
     gameObject.SetActive(false);
-    playerCon.count++;
+        if (!playerCon.isDoubleBoost)
+        {
+            playerCon.count++;
+        }
+        else playerCon.count = playerCon.count + 2;
     playerCon.SetCountText();
   }
-
 }

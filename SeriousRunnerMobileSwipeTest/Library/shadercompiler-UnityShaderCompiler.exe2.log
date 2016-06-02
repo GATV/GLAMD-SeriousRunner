@@ -1,2 +1,34 @@
-Base path: C:/Program Files/Unity/Editor/Data
+Base path: D:/Unity/Editor/Data
 Cmd: getPlatforms
+Cmd: disassembleShader
+  api=15 insize=2009 outsize=3298 ok=1
+Cmd: compileSnippet
+  api=0 type=0 insize=4597 outsize=3365 kw=SPOT pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING SHADER_API_DESKTOP ok=1
+Cmd: disassembleShader
+  api=1 insize=3365 outsize=3365 ok=1
+Cmd: disassembleShader
+  api=14 insize=685 outsize=1826 ok=1
+Cmd: disassembleShader
+  api=17 insize=477 outsize=1233 ok=1
+Cmd: disassembleShader
+  api=11 insize=300 outsize=513 ok=1
+Cmd: disassembleShader
+  api=9 insize=440 outsize=744 ok=1
+Cmd: disassembleShader
+  api=17 insize=557 outsize=1381 ok=1
+Cmd: disassembleShader
+  api=13 insize=1137 outsize=2915 ok=1
+Cmd: disassembleShader
+  api=14 insize=933 outsize=2573 ok=1
+Cmd: compileSnippet
+  api=8 type=0 insize=541 outsize=2645 kw=SHADOWS_DEPTH pd=UNITY_NO_LINEAR_COLORSPACE UNITY_ENABLE_REFLECTION_BUFFERS UNITY_PBS_USE_BRDF3 ok=1
+Cmd: disassembleShader
+  api=13 insize=2645 outsize=4938 ok=1
+Cmd: compileSnippet
+  api=1 type=1 insize=541 outsize=156 kw=SHADOWS_DEPTH pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING ok=1
+Cmd: disassembleShader
+  api=11 insize=156 outsize=192 ok=1
+Cmd: compileSnippet
+  api=8 type=1 insize=541 outsize=561 kw=SHADOWS_CUBE pd=UNITY_NO_LINEAR_COLORSPACE UNITY_ENABLE_REFLECTION_BUFFERS UNITY_PBS_USE_BRDF3 ok=1
+Cmd: disassembleShader
+  api=14 insize=561 outsize=1565 ok=1

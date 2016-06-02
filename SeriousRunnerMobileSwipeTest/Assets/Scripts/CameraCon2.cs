@@ -30,7 +30,7 @@ public class CameraCon2 : MonoBehaviour
 
     //z
     transform.position = playerPosition.TransformPoint(startOffset);
-    transform.rotation = playerPosition.rotation * Quaternion.Euler(25.0f, 0.0f, 0.0f);
+    transform.rotation = playerPosition.rotation * Quaternion.Euler(15.0f, 0.0f, 0.0f);
   }
 
   public void ShakeCamera()

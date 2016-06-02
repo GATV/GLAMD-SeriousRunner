@@ -7,9 +7,13 @@ using System.Collections.Generic;
 public class FBScript : MonoBehaviour {
 
     public string mixpanelToken;
+  public GameObject CameraGuide;
+
+    public Transform Mount;
 
 	void Awake()
     {
+        
         FB.Init(SetInit, OnHideUnity);
 
         Mixpanel.Token = mixpanelToken;
@@ -63,10 +67,14 @@ public class FBScript : MonoBehaviour {
             }
             else
             {
+       
                 Debug.Log("FB is not logged in");
             }
 
             FB.API("me?fields=first_name,last_name", HttpMethod.GET, RetrieveName);
+      CameraGuide.GetComponent<MenuCamController>().setMount(Mount);
+            //Hier all gelogd volgende camera
+
         }
     }
 

@@ -49,17 +49,23 @@
      <Compile Include="Assets\Plugins\Pixelplacement\iTween\Sample\RotateSample.cs" />
      <Compile Include="Assets\Plugins\Pixelplacement\iTween\Sample\SampleInfo.cs" />
      <Compile Include="Assets\Plugins\Pixelplacement\iTween\iTween.cs" />
+     <None Include="Assets\FacebookSDK\SDK\Editor\android\DefaultAndroidManifest.xml" />
+     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Prefabs\Park_pack\particles\Snow\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\Prefabs\HouseMeshes\shaders\bumpedspecmap.shader" />
      <None Include="Assets\Prefabs\Skyboxes\_skybox info.txt" />
      <None Include="Assets\Yurowm\Shaders\SkinShader.shader" />
      <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
      <None Include="Assets\Pk Acro\Animation Times\PK_Acro.txt" />
+     <None Include="Assets\FacebookSDK\SDK\Scripts\Canvas\Resources\JSSDKBindings.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="LitJson">
+ <HintPath>D:/Users/GerardusAT/Documents/GitHub/GLAMD-SeriousRunner/SeriousRunnerMobileSwipeTest/Assets/Mixpanel/LitJson.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

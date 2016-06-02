@@ -16,7 +16,7 @@ public class SpeedPowerUp : MonoBehaviour {
     void OnTriggerEnter()
     {
         playerCon.speed += 4;
-        Debug.Log(playerCon.speed.ToString());
+        //Debug.Log(playerCon.speed.ToString());
         Destroy(gameObject);
     }
 }
