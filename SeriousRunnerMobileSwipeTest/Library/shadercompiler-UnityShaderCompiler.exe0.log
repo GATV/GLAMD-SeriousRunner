@@ -1,5 +1,6 @@
 Base path: D:/Unity/Editor/Data
 Cmd: getPlatforms
+<<<<<<< HEAD
 Cmd: disassembleShader
   api=9 insize=1460 outsize=2540 ok=1
 Cmd: compileSnippet
@@ -48,3 +49,5 @@ Cmd: compileSnippet
   api=1 type=1 insize=541 outsize=296 kw=SHADOWS_CUBE pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING ok=1
 Cmd: disassembleShader
   api=11 insize=296 outsize=529 ok=1
+=======
+>>>>>>> origin/master
