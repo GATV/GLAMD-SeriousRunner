@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Box : MonoBehaviour {
+public class Obstacle : MonoBehaviour {
     private PlayerCon2 playerCon;
     // Use this for initialization
     void Start () {

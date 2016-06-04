@@ -174,8 +174,6 @@
     <Compile Include="Assets\Scripts\CameraCon.cs" />
     <Compile Include="Assets\Scripts\CameraCon2.cs" />
     <Compile Include="Assets\Scripts\CameraStraat.cs" />
-    <Compile Include="Assets\Scripts\Coin.cs" />
-    <Compile Include="Assets\Scripts\CoinDouble.cs" />
     <Compile Include="Assets\Scripts\Enums\DirectionEnum.cs" />
     <Compile Include="Assets\Scripts\Enums\LaneEnum.cs" />
     <Compile Include="Assets\Scripts\Enums\TurnEnum.cs" />
@@ -183,11 +181,14 @@
     <Compile Include="Assets\Scripts\LoadOnClick.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\BarricadeLeft.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\BarricadeRight.cs" />
-    <Compile Include="Assets\Scripts\OnTriggerScripts\Box.cs" />
+    <Compile Include="Assets\Scripts\OnTriggerScripts\Coin.cs" />
+    <Compile Include="Assets\Scripts\OnTriggerScripts\CoinDouble.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\DoublePowerUp.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\End.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\EnterTrigger.cs" />
+    <Compile Include="Assets\Scripts\OnTriggerScripts\Gem.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\LaneTriggerExit.cs" />
+    <Compile Include="Assets\Scripts\OnTriggerScripts\Obstacle.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\ShieldPowerUp.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\SidePiece2.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\SidePiece3.cs" />

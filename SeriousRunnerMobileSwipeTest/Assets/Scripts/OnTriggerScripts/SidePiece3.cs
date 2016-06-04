@@ -1,31 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SidePiece3 : MonoBehaviour {
+public class SidePiece3 : MonoBehaviour
+{
     private GameObject player;
     private PlayerCon2 playerCon;
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         player = GameObject.Find("SeriousRunnerGirl");
         playerCon = player.GetComponent<PlayerCon2>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     void OnTriggerEnter()
     {
-        if(playerCon.isAllowedTurn)
+        playerCon.speed = 1;
+        playerCon.animator.Play("Damage2");
+        if (playerCon.isAllowedTurn)
         {
             int leftOrRight = UnityEngine.Random.Range(0, 1);
             Vector3 turningVectorValue;
 
             if (leftOrRight == 0)
             {
-                playerCon.currentDirection = playerCon.GetDirection(Turn.Right);                
-                if(playerCon.turnRotationValue + 90 > 350)
+                playerCon.currentDirection = playerCon.GetDirection(Turn.Right);
+                if (playerCon.turnRotationValue + 90 > 350)
                 {
                     playerCon.turnRotationValue = 0.0f;
                 }
@@ -45,7 +50,7 @@ public class SidePiece3 : MonoBehaviour {
             else
             {
                 playerCon.currentDirection = playerCon.GetDirection(Turn.Left);
-                if(playerCon.turnRotationValue - 90 < -350)
+                if (playerCon.turnRotationValue - 90 < -350)
                 {
                     playerCon.turnRotationValue = 0.0f;
                 }

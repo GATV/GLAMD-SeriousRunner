@@ -1,24 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SidePiece2 : MonoBehaviour {
+public class SidePiece2 : MonoBehaviour
+{
     private GameObject player;
     private PlayerCon2 playerCon;
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         player = GameObject.Find("SeriousRunnerGirl");
         playerCon = player.GetComponent<PlayerCon2>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     void OnTriggerEnter()
     {
         Vector3 turningVectorValue;
-
+        playerCon.speed = 1;
+        playerCon.animator.Play("Damage2");
         if (playerCon.isAllowedTurn)
         {
             if (playerCon.turnDirectionAllowed != Turn.Left)
