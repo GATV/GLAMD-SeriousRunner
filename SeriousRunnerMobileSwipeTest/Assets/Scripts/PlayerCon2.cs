@@ -53,19 +53,18 @@ public class PlayerCon2 : MonoBehaviour
     //shield
     public GameObject shieldPrefab;
     public GameObject shieldInstance;
-
     public float invincibleTimer;
     public bool isInvincible;
-    private float invincibleTime;
+    public float invincibleTime;
     //speed
     public float speedBoostTime;
-    private float speedTimer;
+    public float speedTimer;
     //double
     public float doublePowerUpTime;
     public GameObject doublePrefab;
     public GameObject doubleInstance;
     public bool isDoubleBoost;
-    private float doublePowerUpTimer;
+    public float doublePowerUpTimer;
 
     //Obstacles
     public GameObject barricadeRight;
@@ -475,13 +474,13 @@ public class PlayerCon2 : MonoBehaviour
         //Shield power-up
         if (isInvincible)
         {
-            invincibleTime += Time.deltaTime;
+            invincibleTimer += Time.deltaTime;
             shieldInstance.transform.position = new Vector3(transform.position.x, transform.position.y + 2.55f, transform.position.z);
-            if (invincibleTime >= invincibleTimer)
+            if (invincibleTimer >= invincibleTime)
             {
                 isInvincible = false;
                 Destroy(shieldInstance);
-                invincibleTime = 0;
+                invincibleTimer = 0;
             }
         }
 

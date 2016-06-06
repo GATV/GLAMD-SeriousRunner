@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: 5a47d0382349cd9458541822a40a2840
-timeCreated: 1463578580
+timeCreated: 1465252141
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - damageFX: {fileID: 8300000, guid: 7e26c9daf4c32483b9c2790e662d3f1b, type: 3}
+  - audio: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
