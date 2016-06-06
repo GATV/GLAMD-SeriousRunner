@@ -195,6 +195,8 @@
     <Compile Include="Assets\Scripts\OnTriggerScripts\SidePiece2.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\SidePiece3.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\SpeedPowerUp.cs" />
+    <Compile Include="Assets\Scripts\OnTriggerScripts\TriggerBarricadeLeft.cs" />
+    <Compile Include="Assets\Scripts\OnTriggerScripts\TriggerBarricadeRight.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\TriggerLeft1.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\TriggerLeft2.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\TriggerRight1.cs" />
