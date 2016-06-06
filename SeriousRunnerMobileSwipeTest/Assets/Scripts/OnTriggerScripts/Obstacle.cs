@@ -18,7 +18,7 @@ public class Obstacle : MonoBehaviour {
         if(!playerCon.isInvincible)
         {
             playerCon.speed = 1;
-            playerCon.animator.Play("Damage2");
+            playerCon.animator.Play("Damage");
         }
         gameObject.SetActive(false);
     }

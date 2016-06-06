@@ -17,7 +17,6 @@ public class End : MonoBehaviour {
 
     void OnTriggerEnter()
     {
-        playerCon.winText.text = "Finish!";
         playerCon.speed = 0.0f;
         playerCon.animator.Play("Wary");
         playerCon.finished = true;

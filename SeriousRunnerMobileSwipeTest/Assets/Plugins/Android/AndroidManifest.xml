@@ -18,8 +18,8 @@
     <activity android:name="com.facebook.unity.FBUnityCreateGameGroupActivity" />
     <activity android:name="com.facebook.unity.FBUnityJoinGameGroupActivity" />
     <activity android:name="com.facebook.unity.AppInviteDialogActivity" />
-    <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="fb	 557192034462616|jszpr8Qv7H6XQjHtavkUGCcWHtM" />
-    <provider android:name="com.facebook.FacebookContentProvider" android:authorities="com.facebook.app.FacebookContentProvider	 557192034462616|jszpr8Qv7H6XQjHtavkUGCcWHtM" android:exported="true" />
+    <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="fb557192034462616jszpr8Qv7H6XQjHtavkUGCcWHtM" />
+    <provider android:name="com.facebook.FacebookContentProvider" android:authorities="com.facebook.app.FacebookContentProvider557192034462616jszpr8Qv7H6XQjHtavkUGCcWHtM" android:exported="true" />
     <activity android:name="com.facebook.FacebookActivity" android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" android:label="@string/app_name" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
   </application>
 </manifest>

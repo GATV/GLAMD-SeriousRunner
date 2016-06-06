@@ -147,7 +147,10 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'ANIM_Character_Spine03' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 1
@@ -160,7 +163,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Idle_Ready
       takeName: Take 001
-      firstFrame: 1
+      firstFrame: 60
       lastFrame: 75
       wrapMode: 0
       orientationOffsetY: 0
@@ -184,11 +187,11 @@ ModelImporter:
       transformMask: []
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     - serializedVersion: 16
       name: Idle_Standing
       takeName: Take 001
-      firstFrame: 78
+      firstFrame: 103
       lastFrame: 136
       wrapMode: 0
       orientationOffsetY: 0
@@ -212,7 +215,7 @@ ModelImporter:
       transformMask: []
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     isReadable: 0
   meshes:
     lODScreenPercentages: []

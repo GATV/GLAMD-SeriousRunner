@@ -4,16 +4,16 @@ using Facebook.Unity;
 using System;
 using System.Collections.Generic;
 
-public class FBScript : MonoBehaviour {
+public class FBScript : MonoBehaviour
+{
 
     public string mixpanelToken;
-  public GameObject CameraGuide;
+    public GameObject CameraGuide;
 
     public Transform Mount;
 
-	void Awake()
+    void Awake()
     {
-        
         FB.Init(SetInit, OnHideUnity);
 
         Mixpanel.Token = mixpanelToken;
@@ -49,7 +49,7 @@ public class FBScript : MonoBehaviour {
 
     public void FBLogIn()
     {
-        IEnumerable<string> permissions = new string[] { "public_profile" };
+        IEnumerable<string> permissions = new string[] { "public_profile", "email" };
         FB.LogInWithReadPermissions(permissions, AuthCallBack);
     }
 
@@ -67,14 +67,12 @@ public class FBScript : MonoBehaviour {
             }
             else
             {
-       
+
                 Debug.Log("FB is not logged in");
             }
 
-            FB.API("me?fields=first_name,last_name", HttpMethod.GET, RetrieveName);
-      CameraGuide.GetComponent<MenuCamController>().setMount(Mount);
-            //Hier all gelogd volgende camera
-
+            FB.API("me?fields=first_name,last_name,email", HttpMethod.GET, RetrieveName);
+            CameraGuide.GetComponent<MenuCamController>().setMount(Mount);            
         }
     }
 
@@ -85,11 +83,9 @@ public class FBScript : MonoBehaviour {
         {
             { "$first_name", result.ResultDictionary["first_name"] },
             { "$last_name", result.ResultDictionary["last_name"] },
-            { "$name", String.Format("{0} {1}", result.ResultDictionary["first_name"], result.ResultDictionary["last_name"]) }
+            { "$name", String.Format("{0} {1}", result.ResultDictionary["first_name"], result.ResultDictionary["last_name"]) },
+            { "$email", result.ResultDictionary.ContainsKey("email") ? result.ResultDictionary["email"] : "-" }
         });
-        Mixpanel.SendEvent("Login", new Dictionary<string, object>
-        {
-            { "Date", DateTime.Now.ToString("dd/MM/yyyy HH:mm") }
-        });
+        Mixpanel.SendEvent("Login");       
     }
 }

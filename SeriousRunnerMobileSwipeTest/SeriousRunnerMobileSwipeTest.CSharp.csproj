@@ -56,6 +56,12 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -174,6 +180,8 @@
     <Compile Include="Assets\Scripts\CameraCon.cs" />
     <Compile Include="Assets\Scripts\CameraCon2.cs" />
     <Compile Include="Assets\Scripts\CameraStraat.cs" />
+    <Compile Include="Assets\Scripts\Data\BindableBase.cs" />
+    <Compile Include="Assets\Scripts\Data\Datacontroller.cs" />
     <Compile Include="Assets\Scripts\Enums\DirectionEnum.cs" />
     <Compile Include="Assets\Scripts\Enums\LaneEnum.cs" />
     <Compile Include="Assets\Scripts\Enums\TurnEnum.cs" />
@@ -201,6 +209,9 @@
     <Compile Include="Assets\Scripts\PlayerCon.cs" />
     <Compile Include="Assets\Scripts\PlayerCon2.cs" />
     <Compile Include="Assets\Scripts\PlayerConJustin.cs" />
+    <Compile Include="Assets\Scripts\Replay.cs" />
+    <Compile Include="Assets\Scripts\ReplayGhostController.cs" />
+    <Compile Include="Assets\Scripts\ReplayInfo.cs" />
     <Compile Include="Assets\Scripts\Rotator.cs" />
     <Compile Include="Assets\Scripts\SwipteTesting.cs" />
     <Compile Include="Assets\Scripts\UI Script\GameMenu.cs" />

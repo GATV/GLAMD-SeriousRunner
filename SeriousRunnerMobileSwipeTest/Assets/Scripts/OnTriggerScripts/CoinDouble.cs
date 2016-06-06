@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CoinDouble : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
     private PlayerCon2 playerCon;
 
     // Use this for initialization

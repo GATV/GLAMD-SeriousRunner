@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Coin : MonoBehaviour
 {
-  public GameObject player;
+  private GameObject player;
   private PlayerCon2 playerCon;
   public AudioClip coin;
 

@@ -214,6 +214,10 @@ namespace Facebook.Unity
                 }
             };
 
+            if (resultContainer.ResultDictionary == null)
+            {
+                resultContainer.ResultDictionary = new Dictionary<string, object>(1);
+            }
             resultContainer.ResultDictionary[Constants.CallbackIdKey]
                 = this.CallbackManager.AddFacebookDelegate(loginCallback);
             this.OnLoginComplete(resultContainer);

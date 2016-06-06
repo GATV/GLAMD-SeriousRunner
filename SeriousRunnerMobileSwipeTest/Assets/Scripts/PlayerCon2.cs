@@ -82,8 +82,7 @@ public class PlayerCon2 : MonoBehaviour
 
     //UI
     public Text countText;
-    public Text winText;
-    public Text timeText;
+    public Text TimeText;
     public Text scoreText;
     private float seconds;
     private float minutes;
@@ -94,7 +93,6 @@ public class PlayerCon2 : MonoBehaviour
 
     public Button ButtonPause;
 
-    public Text pauseButtonText;
     public bool ButtonLeftTurnClicked;
     public bool ButtonRightTurnClicked;
 
@@ -114,12 +112,11 @@ public class PlayerCon2 : MonoBehaviour
             { Direction.East, Vector3.right },
             { Direction.South, Vector3.back },
             { Direction.West, Vector3.left }
-    };
+        };
 
         controller = GetComponent<CharacterController>();
         count = 0;
         SetCountText();
-        winText.text = "";
         animator = GetComponent<Animator>();
         setSpeed = speed;
         jumpTimer = jumpTime;
@@ -128,10 +125,11 @@ public class PlayerCon2 : MonoBehaviour
         seconds = 0;
         minutes = 0;
 
-        pauseButtonText.text = "";
 
         xPosition = transform.position.x;
         yPosition = transform.position.y;
+
+        Mixpanel.SendEvent("Game Started");
     }
 
     //Update is called once per frame
@@ -381,11 +379,10 @@ public class PlayerCon2 : MonoBehaviour
         }
 
 
-
         //Collisions
         if (speed < setSpeed && !finished)
         {
-            //Debug.Log(speed.ToString());
+            Debug.Log(speed.ToString());
             speed += Time.deltaTime;
             if (speed > setSpeed)
             {
@@ -417,7 +414,7 @@ public class PlayerCon2 : MonoBehaviour
 
             Vector3 pos = new Vector3();
             pos.y += (float)Math.Sin(blend * Math.PI) * jumpHeight;
-            transform.position = new Vector3(transform.position.x, pos.y, transform.position.z);
+            transform.position = new Vector3(transform.position.x, pos.y - 0.66f, transform.position.z);
         }
         else
         {
@@ -461,7 +458,7 @@ public class PlayerCon2 : MonoBehaviour
                 seconds = 0;
                 minutes++;
             }
-            timeText.text = string.Format("{0:00} : {1:00}", minutes, Mathf.Floor(seconds));
+            TimeText.text = string.Format("{0:00} : {1:00}", minutes, Mathf.Floor(seconds));
         }
 
         //Speed power-up
@@ -479,7 +476,7 @@ public class PlayerCon2 : MonoBehaviour
         if (isInvincible)
         {
             invincibleTime += Time.deltaTime;
-            shieldInstance.transform.position = new Vector3(transform.position.x, transform.position.y + 1.1f, transform.position.z);
+            shieldInstance.transform.position = new Vector3(transform.position.x, transform.position.y + 2.55f, transform.position.z);
             if (invincibleTime >= invincibleTimer)
             {
                 isInvincible = false;
@@ -492,7 +489,7 @@ public class PlayerCon2 : MonoBehaviour
         if (isDoubleBoost)
         {
             doublePowerUpTimer += Time.deltaTime;
-            doubleInstance.transform.position = new Vector3(transform.position.x, transform.position.y + 0.8f, transform.position.z);
+            doubleInstance.transform.position = new Vector3(transform.position.x, transform.position.y + 1.2f, transform.position.z);
             if (doublePowerUpTimer >= doublePowerUpTime)
             {
                 isDoubleBoost = false;
@@ -513,13 +510,11 @@ public class PlayerCon2 : MonoBehaviour
         {
             Time.timeScale = 1f;
             paused = false;
-            pauseButtonText.text = "";
         }
         else
         {
             Time.timeScale = 0.0f;
             paused = true;
-            pauseButtonText.text = "Game is paused";
         }
     }
 
@@ -570,19 +565,25 @@ public class PlayerCon2 : MonoBehaviour
         //Finish
         if (other.gameObject.CompareTag("End"))
         {
-            winText.text = "Finish";
             speed = 0.0f;
             animator.Play("Wary");
             finished = true;
             FinishPanel.FadeIn();
             score = (500 - ((minutes * 60) + Mathf.Floor(seconds))) + (count * 2);
             scoreText.text = "Score: " + score.ToString();
+
+            Mixpanel.SendEvent("Game Finished", new Dictionary<string, object>
+            {
+                { "score", score },
+                { "seconds", minutes * 60 + seconds },
+                { "coins", count }
+            });
         }
     }
 
     public void SetCountText()
     {
-        countText.text = "Coins: " + count.ToString();
+        countText.text = count.ToString();
     }
 
     public void TurnMade(Turn t)
