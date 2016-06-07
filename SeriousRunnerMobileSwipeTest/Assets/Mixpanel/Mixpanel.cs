@@ -37,7 +37,7 @@ public static class Mixpanel
 	{
 		if(string.IsNullOrEmpty(Token))
 		{
-			Debug.LogError("Attempted to send an event without setting the Mixpanel.Token variable.");
+			//Debug.LogError("Attempted to send an event without setting the Mixpanel.Token variable.");
 			return;
 		}
 		

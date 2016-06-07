@@ -168,64 +168,97 @@ public class PlayerCon2 : MonoBehaviour
 
                             if (swipeType.x != 0.0f)
                             {
-                                if (swipeType.x > 0.0f)
-                                {
-                                    //right
-                                    if (currentLane < Lane.Right && switchable && !paused)
-                                    {
-                                        currentLane++;
-                                        //controller.Move(directionMovements[GetDirection(Turn.Right)] * laneDistance);
+                if (swipeType.x > 0.0f)
+                {
+                  //right
+                  if (currentLane < Lane.Right && switchable && !paused && !isAllowedTurn)
+                  {
+                    currentLane++;
+                    //controller.Move(directionMovements[GetDirection(Turn.Right)] * laneDistance);
 
-                                        //new
-                                        switch (currentDirection)
-                                        {
-                                            case Direction.North:
-                                                xPosition += 2;
-                                                break;
-                                            case Direction.East:
-                                                yPosition -= 2;
-                                                break;
-                                            case Direction.West:
-                                                yPosition += 2;
-                                                break;
-                                            case Direction.South:
-                                                xPosition -= 2;
-                                                break;
-                                        }
+                    //new
+                    switch (currentDirection)
+                    {
+                      case Direction.North:
+                        xPosition += 2;
+                        break;
+                      case Direction.East:
+                        yPosition -= 2;
+                        break;
+                      case Direction.West:
+                        yPosition += 2;
+                        break;
+                      case Direction.South:
+                        xPosition -= 2;
+                        break;
+                    }
 
 
-                                    }
-                                }
-                                else
-                                {
-                                    //left
-                                    if (currentLane > Lane.Left && !paused && switchable)
-                                    {
-                                        currentLane--;
-                                        //controller.Move(directionMovements[GetDirection(Turn.Left)] * laneDistance);
-                                        //Nieuw
-                                        switch (currentDirection)
-                                        {
-                                            case Direction.North:
-                                                xPosition -= 2;
-                                                break;
-                                            case Direction.East:
-                                                yPosition += 2;
-                                                break;
-                                            case Direction.West:
-                                                yPosition -= 2;
-                                                break;
-                                            case Direction.South:
-                                                xPosition += 2;
-                                                break;
-                                        }
+                  }
+                  else if (isAllowedTurn && turnDirectionAllowed != Turn.Left)
+                  {
+                    if (turnRotationValue + 90 > 350)
+                      turnRotationValue = 0.0f;
+                    else
+                      turnRotationValue += 90.0f;
 
-                                    }
-                                }
-                            }
+                    turningVectorValue = new Vector3(0, turnRotationValue, 0);
+                    iTween.RotateTo(gameObject, turningVectorValue, 1.0f);
+                    currentDirection = GetDirection(Turn.Right);
+                    isAllowedTurn = false;
+                    TurnMade(Turn.Right);
+                    //Nieuw
+                    xPosition = transform.position.x;
+                    yPosition = transform.position.z;
+                  }
+                }
+                else
+                {
+                  //left
+                  if (currentLane > Lane.Left && !paused && switchable && !isAllowedTurn)
+                  {
+                    currentLane--;
+                    //controller.Move(directionMovements[GetDirection(Turn.Left)] * laneDistance);
+                    //Nieuw
+                    switch (currentDirection)
+                    {
+                      case Direction.North:
+                        xPosition -= 2;
+                        break;
+                      case Direction.East:
+                        yPosition += 2;
+                        break;
+                      case Direction.West:
+                        yPosition -= 2;
+                        break;
+                      case Direction.South:
+                        xPosition += 2;
+                        break;
+                    }
 
-                            if (swipeType.y != 0.0f)
-                            {
+                  }
+                  else if (isAllowedTurn && turnDirectionAllowed != Turn.Right)
+                  {
+                    if (turnRotationValue - 90 < -350)
+                      turnRotationValue = 0.0f;
+                    else
+                      turnRotationValue -= 90.0f;
+
+                    turningVectorValue = new Vector3(0, turnRotationValue, 0);
+                    iTween.RotateTo(gameObject, turningVectorValue, 1.0f);
+                    //transform.Rotate(0, -90, 0);    
+                    currentDirection = GetDirection(Turn.Left);
+                    isAllowedTurn = false;
+                    TurnMade(Turn.Left);
+                    //Nieuw
+                    xPosition = transform.position.x;
+                    yPosition = transform.position.z;
+                  }
+                }
+              }
+
+              if (swipeType.y != 0.0f)
+              {
                                 if (swipeType.y > 0.0f)
                                 {
                                     //jump
@@ -381,7 +414,7 @@ public class PlayerCon2 : MonoBehaviour
         //Collisions
         if (speed < setSpeed && !finished)
         {
-            Debug.Log(speed.ToString());
+            //Debug.Log(speed.ToString());
             speed += Time.deltaTime;
             if (speed > setSpeed)
             {
@@ -502,6 +535,11 @@ public class PlayerCon2 : MonoBehaviour
     {
         SceneManager.LoadScene("SeriousRunnerTest");
     }
+
+  public void PauseOff()
+  {
+    Time.timeScale = 1f;
+  }
 
     public void buttonPauseClick()
     {
