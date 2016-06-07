@@ -53,6 +53,12 @@ public class FBScript : MonoBehaviour
         FB.LogInWithReadPermissions(permissions, AuthCallBack);
     }
 
+    public void FBLogOut()
+    {
+        Mixpanel.SendEvent("Logout");
+        FB.LogOut();
+    }
+
     private void AuthCallBack(ILoginResult result)
     {
         if (result.Error != null)

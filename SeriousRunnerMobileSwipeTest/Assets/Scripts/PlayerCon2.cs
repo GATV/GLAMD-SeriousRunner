@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using GameUp;
+using Facebook.Unity;
+using Assets.Scripts;
 
 public class PlayerCon2 : MonoBehaviour
 {
@@ -98,6 +100,12 @@ public class PlayerCon2 : MonoBehaviour
     // Use this for initialization
     private CharacterController controller;
 
+    // HeroicLabs
+    public string heroicLabsId;
+    public string leaderboardsId;
+    private Replay replay;
+    private int replayIndex;
+
     void Start()
     {
         float turnRotationValue = gameObject.transform.rotation.y;
@@ -128,7 +136,16 @@ public class PlayerCon2 : MonoBehaviour
         xPosition = transform.position.x;
         yPosition = transform.position.y;
 
+        replay = new Replay();
+        replayIndex = 0;
+        InvokeRepeating("TrackReplayInfo", 0.2f, 0.2f);
+
         Mixpanel.SendEvent("Game Started");
+    }
+
+    void TrackReplayInfo()
+    {
+        replay.Add(new ReplayInfo(replayIndex++, transform.position, currentDirection));
     }
 
     //Update is called once per frame
@@ -547,12 +564,19 @@ public class PlayerCon2 : MonoBehaviour
         {
             Time.timeScale = 1f;
             paused = false;
+            Mixpanel.SendEvent("Unpaused");
         }
         else
         {
             Time.timeScale = 0.0f;
             paused = true;
+            Mixpanel.SendEvent("Paused");
         }
+    }
+
+    public void LogRestart()
+    {
+        Mixpanel.SendEvent("Restarted");
     }
 
     public void TurnLeft()
@@ -615,7 +639,38 @@ public class PlayerCon2 : MonoBehaviour
                 { "seconds", minutes * 60 + seconds },
                 { "coins", count }
             });
+
+            Client.ApiKey = heroicLabsId;
+            Client.Ping(onError);
+            Client.LoginOAuthFacebook(AccessToken.CurrentAccessToken.TokenString, onLogin, onError);
         }
+    }
+
+    private void onError(int statusCode, string reason)
+    {
+        Debug.LogFormat("Something went wrong with the HeroicLabs SDK ({0} - {1}", statusCode, reason);
+    }
+
+    private void onLogin(SessionClient session)
+    {
+        session.Gamer(g =>
+        {
+            if (g.Name.Replace(' ', '_') != g.Nickname)
+            {
+                session.UpdateGamer(g.Name.Replace(' ', '_'), onSuccess, onError);
+            }
+        }, onError);
+        session.UpdateLeaderboard(leaderboardsId, (long)(500 - (minutes * 60 + Mathf.Floor(seconds)) + count * 2), onLeaderboardUpdated, onError);
+    }
+
+    private void onSuccess()
+    {
+        Debug.Log("Changed nickname to firstname_lastname!");
+    }
+
+    private void onLeaderboardUpdated(Rank rank)
+    {
+        Debug.Log("Added score: " + rank.Score);
     }
 
     public void SetCountText()
