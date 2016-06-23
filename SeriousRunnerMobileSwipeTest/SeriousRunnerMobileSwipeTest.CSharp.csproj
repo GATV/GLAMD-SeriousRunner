@@ -58,6 +58,12 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -176,6 +182,7 @@
     <Compile Include="Assets\Mixpanel\Mixpanel.cs" />
     <Compile Include="Assets\Mixpanel\MixpanelExample.cs" />
     <Compile Include="Assets\Runner\Scripts\Behavior.cs" />
+    <Compile Include="Assets\Scripts\APIController.cs" />
     <Compile Include="Assets\Scripts\CameraCon.cs" />
     <Compile Include="Assets\Scripts\CameraCon2.cs" />
     <Compile Include="Assets\Scripts\CameraStraat.cs" />
@@ -188,6 +195,8 @@
     <Compile Include="Assets\Scripts\FBSharerController.cs" />
     <Compile Include="Assets\Scripts\LightsInstantiate.cs" />
     <Compile Include="Assets\Scripts\LoadOnClick.cs" />
+    <Compile Include="Assets\Scripts\Match.cs" />
+    <Compile Include="Assets\Scripts\MatchPanelItem.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\BarricadeLeft.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\BarricadeRight.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\Coin.cs" />
@@ -218,12 +227,10 @@
     <Compile Include="Assets\Scripts\ReplayGhostController.cs" />
     <Compile Include="Assets\Scripts\ReplayInfo.cs" />
     <Compile Include="Assets\Scripts\Rotator.cs" />
+    <Compile Include="Assets\Scripts\ScrollviewMatches.cs" />
     <Compile Include="Assets\Scripts\SwipteTesting.cs" />
     <Compile Include="Assets\Scripts\UI Script\GameMenu\FadeInAndOut.cs" />
-    <Compile Include="Assets\Scripts\UI Script\GameMenu\Match.cs" />
-    <Compile Include="Assets\Scripts\UI Script\GameMenu\MatchPanelItem.cs" />
     <Compile Include="Assets\Scripts\UI Script\GameMenu\MenuCamController.cs" />
-    <Compile Include="Assets\Scripts\UI Script\GameMenu\ScrollviewMatches.cs" />
     <Compile Include="Assets\Scripts\UI Script\GameMenu\Serious3FMWebLink.cs" />
     <Compile Include="Assets\Scripts\UI Script\GameMenu\VolumeScript.cs" />
     <Compile Include="Assets\Scripts\UI Script\SplashScreen\SplashScreenLoader.cs" />

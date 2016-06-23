@@ -6,7 +6,6 @@ using System.Collections.Generic;
 
 public class FBScript : MonoBehaviour
 {
-
     public string mixpanelToken;
     public GameObject CameraGuide;
 
@@ -70,15 +69,14 @@ public class FBScript : MonoBehaviour
             if (FB.IsLoggedIn)
             {
                 Debug.Log("FB is logged in");
+                FB.API("me?fields=first_name,last_name,email", HttpMethod.GET, RetrieveName);
+                CameraGuide.GetComponent<MenuCamController>().setMount(Mount);
             }
             else
             {
 
                 Debug.Log("FB is not logged in");
             }
-
-            FB.API("me?fields=first_name,last_name,email", HttpMethod.GET, RetrieveName);
-            CameraGuide.GetComponent<MenuCamController>().setMount(Mount);            
         }
     }
 
@@ -92,6 +90,6 @@ public class FBScript : MonoBehaviour
             { "$name", String.Format("{0} {1}", result.ResultDictionary["first_name"], result.ResultDictionary["last_name"]) },
             { "$email", result.ResultDictionary.ContainsKey("email") ? result.ResultDictionary["email"] : "-" }
         });
-        Mixpanel.SendEvent("Login");       
+        Mixpanel.SendEvent("Login");
     }
 }
