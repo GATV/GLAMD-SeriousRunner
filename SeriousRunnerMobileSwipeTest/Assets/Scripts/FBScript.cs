@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 
 public class FBScript : MonoBehaviour
-{
+{   
     public string mixpanelToken;
     public GameObject CameraGuide;
 
@@ -76,7 +76,7 @@ public class FBScript : MonoBehaviour
             {
 
                 Debug.Log("FB is not logged in");
-            }
+            }                       
         }
     }
 
@@ -90,6 +90,6 @@ public class FBScript : MonoBehaviour
             { "$name", String.Format("{0} {1}", result.ResultDictionary["first_name"], result.ResultDictionary["last_name"]) },
             { "$email", result.ResultDictionary.ContainsKey("email") ? result.ResultDictionary["email"] : "-" }
         });
-        Mixpanel.SendEvent("Login");
+        Mixpanel.SendEvent("Login");       
     }
 }

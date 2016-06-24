@@ -14,5 +14,6 @@ namespace Assets.Scripts
         public string ReplayId { get; set; }
         public bool Completed { get; set; }
         public int Seed { get; set; }
+        public DateTime Date { get; set; }
     }
 }
