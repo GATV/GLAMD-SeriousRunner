@@ -19,9 +19,7 @@ public static class APIController
     private const string GET_MATCH = "http://anthony-api.bouwe.it/api/Match/{0}";
     private const string UPDATE_MATCH = "http://anthony-api.bouwe.it/api/Match/{0}?opponentScore={1}&completed={2}";
     private const string SAVE_MATCH = "http://anthony-api.bouwe.it/api/Match?challengerId={0}&challengerScore={1}&opponentId={2}&replayId={3}&seed={4}";    
-    private const string GET_MATCHES = "http://anthony-api.bouwe.it/api/Match?playerId={0}";
-
-    public static Guid activeSEP = new Guid("a773a316-821c-44a9-b0cd-7bfaea17e556");      
+    private const string GET_MATCHES = "http://anthony-api.bouwe.it/api/Match?playerId={0}";     
 
     public static Match[] GetMatches(string playerId)
     {

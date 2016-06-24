@@ -174,7 +174,6 @@
     <Compile Include="Assets\FacebookSDK\SDK\Scripts\Utils\IFacebookLogger.cs" />
     <Compile Include="Assets\FacebookSDK\SDK\Scripts\Utils\MiniJson.cs" />
     <Compile Include="Assets\FacebookSDK\SDK\Scripts\Utils\Utilities.cs" />
-    <Compile Include="Assets\MPScript.cs" />
     <Compile Include="Assets\Mixpanel\Mixpanel.cs" />
     <Compile Include="Assets\Mixpanel\MixpanelExample.cs" />
     <Compile Include="Assets\Runner\Scripts\Behavior.cs" />
@@ -189,8 +188,10 @@
     <Compile Include="Assets\Scripts\Enums\TurnEnum.cs" />
     <Compile Include="Assets\Scripts\FBScript.cs" />
     <Compile Include="Assets\Scripts\FBSharerController.cs" />
+    <Compile Include="Assets\Scripts\Helpers\GlobalRandom.cs" />
     <Compile Include="Assets\Scripts\LightsInstantiate.cs" />
     <Compile Include="Assets\Scripts\LoadOnClick.cs" />
+    <Compile Include="Assets\Scripts\MPScript.cs" />
     <Compile Include="Assets\Scripts\Match.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\BarricadeLeft.cs" />
     <Compile Include="Assets\Scripts\OnTriggerScripts\BarricadeRight.cs" />
