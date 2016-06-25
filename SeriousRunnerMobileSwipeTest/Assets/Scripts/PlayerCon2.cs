@@ -32,6 +32,10 @@ public class PlayerCon2 : MonoBehaviour
     public float turnRotationValue;
     private Vector3 turningVectorValue;
 
+    //Nieuw toegevoegd    
+    private float gameTime;
+    public bool finished;
+
     //Mobile controls
     private float fingerStartTime = 0.0f;
     private Vector2 fingerStartPos = Vector2.zero;
@@ -39,17 +43,13 @@ public class PlayerCon2 : MonoBehaviour
     private float minSwipeDist = 50.0f;
     private float maxSwipeTime = 0.5f;
 
-
-    //Jumping
-    public float jumpTime;
-    public float jumpHeight;
-
-    private float jumpTimer;
+    //jumping
+    private float gravity;
+    private float jumpSpeed;
+    private float vSpeed;
+    private float distToGround;
+    private Vector3 raycastDir;
     private bool switchable;
-
-    //Nieuw toegevoegd    
-    private float gameTime;
-    public bool finished;
 
     //power-ups
     //shield
@@ -67,6 +67,10 @@ public class PlayerCon2 : MonoBehaviour
     public GameObject doubleInstance;
     public bool isDoubleBoost;
     public float doublePowerUpTimer;
+
+    //coins
+    public GameObject coinPrefab;
+    public GameObject coinInstance;
 
     //Obstacles
     public GameObject barricadeRight;
@@ -126,12 +130,17 @@ public class PlayerCon2 : MonoBehaviour
         SetCountText();
         animator = GetComponent<Animator>();
         setSpeed = speed;
-        jumpTimer = jumpTime;
         switchable = true;
         isDoubleBoost = false;
         seconds = 0;
         minutes = 0;
 
+        //jumping;
+        gravity = 9.8f;
+        jumpSpeed = 6.0f;
+        vSpeed = 0.0f;
+        distToGround = 0.2f;
+        raycastDir = new Vector3(0, -1, 0);
 
         xPosition = transform.position.x;
         yPosition = transform.position.y;
@@ -281,8 +290,7 @@ public class PlayerCon2 : MonoBehaviour
                                     //jump
                                     if (transform.position.y < 0.2 && !paused)
                                     {
-                                        jumpTimer = 0.0f;
-                                        switchable = false;
+                                        vSpeed = jumpSpeed;
                                     }
                                 }
                             }
@@ -440,35 +448,16 @@ public class PlayerCon2 : MonoBehaviour
         }
 
         //Jumping
-        if (Input.GetKeyDown(KeyCode.Space) & transform.position.y < 0.2 && !paused)
+        Vector3 vel = transform.forward * Input.GetAxis("Vertical");
+        //Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 0.6f, transform.position.z), raycastDir * distToGround, Color.red, 20, true);
+        if (Input.GetKeyDown(KeyCode.Space) && IsAllowedToJump() && !paused)
         {
-            //animator.Play("Jump");
-            jumpTimer = 0.0f;
-            switchable = false;
+            vSpeed = jumpSpeed;
         }
-        else if (transform.position.y > 0)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y - 0.1f, transform.position.z);
-            if (transform.position.y < 0)
-            {
-                transform.position = new Vector3(transform.position.x, 0.0f, transform.position.z);
-            }
-        }
-        if (jumpTimer < jumpTime)
-        {
-            //Debug.Log(jumpTimer);
-            jumpTimer = Math.Min(jumpTimer + Time.deltaTime, jumpTime);
-
-            float blend = jumpTimer / jumpTime;
-
-            Vector3 pos = new Vector3();
-            pos.y += (float)Math.Sin(blend * Math.PI) * jumpHeight;
-            transform.position = new Vector3(transform.position.x, pos.y - 0.66f, transform.position.z);
-        }
-        else
-        {
-            switchable = true;
-        }
+        vSpeed -= gravity * Time.deltaTime;
+        vel.y = vSpeed;
+        controller.Move(vel * Time.deltaTime);
+        //end Jumping
 
         controller.Move(directionMovements[currentDirection] * speed * Time.deltaTime);
 
@@ -491,14 +480,6 @@ public class PlayerCon2 : MonoBehaviour
         //Timetracking
         if (!finished)
         {
-            //gameTime += Time.deltaTime;
-
-            //var minutes = gameTime / 60;
-            //var seconds = gameTime % 60;
-            //var fraction = (gameTime * 100) % 100;
-
-            //timeText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
-
             //adding seconds
             seconds += Time.deltaTime;
             //adding minutes
@@ -855,5 +836,19 @@ public class PlayerCon2 : MonoBehaviour
                 }
             }
         }
+    }
+    private bool IsAllowedToJump()
+    {
+        return IsTouchingGround(new Vector3(transform.position.x, transform.position.y + 0.6f, transform.position.z));
+    }
+
+    private bool IsTouchingGround(Vector3 rayOrigin)
+    {
+        return Physics.Raycast(rayOrigin, raycastDir, distToGround);
+    }
+
+    public Vector3 getPlayerPos()
+    {
+        return new Vector3(transform.position.x, transform.position.y, transform.position.z);
     }
 }

@@ -3,11 +3,10 @@ using System.Collections;
 
 public class Coin : MonoBehaviour
 {
-  private GameObject player;
-  private PlayerCon2 playerCon;
-  public AudioClip coin;
-
-  public AudioSource audio;
+    private GameObject player;
+    private PlayerCon2 playerCon;
+    public AudioClip coin;
+    public AudioSource audio;
     // Use this for initialization
     void Start()
     {
@@ -25,12 +24,13 @@ public class Coin : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         audio.PlayOneShot(coin);
-        gameObject.SetActive(false);
-        if (!playerCon.isDoubleBoost)
+        Destroy(gameObject);
+        if (playerCon.isDoubleBoost)
         {
-            playerCon.count++;
+            playerCon.count += 2;
         }
-        else playerCon.count = playerCon.count + 2;
+        else playerCon.count++;
+        playerCon.coinInstance = (GameObject)Instantiate(playerCon.coinPrefab, playerCon.getPlayerPos(), Quaternion.identity);
         playerCon.SetCountText();
     }
 }
