@@ -44,6 +44,19 @@ namespace Assets.Scripts.Gameplay
         // 1 = shortpath, 2 = MediumPath, 3 = Long Path
         public int path;
 
+        // coin bows over enkele obstakels
+        HashSet<int> Bow1 = new HashSet<int>() { 0, 3, 6, 9, 12 };
+        HashSet<int> Bow2 = new HashSet<int>() { 1, 4, 7, 10, 13 };
+        HashSet<int> Bow3 = new HashSet<int>() { 2, 5, 8, 11, 14 };
+        HashSet<int> Bow4 = new HashSet<int>() { 15, 18, 21, 24, 27 };
+        HashSet<int> Bow5 = new HashSet<int>() { 16, 19, 22, 25, 28 };
+        HashSet<int> Bow6 = new HashSet<int>() { 17, 20, 23, 26, 29 };
+
+        // rows met autowegen voor groundobstacles
+        HashSet<int> Row1 = new HashSet<int>() { 0, 3, 6};
+        HashSet<int> Row2 = new HashSet<int>() { 1, 4, 7 };
+        HashSet<int> Row3 = new HashSet<int>() { 2, 5, 8 };
+
         // Dependencies en chancevalues voor het bijhouden van variaties aan gameplay en wiskunde (uitschakelen en kansberekenen van objecten en gameplay)
         private bool bigobstacle = false;
         private int powerupcount = 0;
@@ -53,7 +66,7 @@ namespace Assets.Scripts.Gameplay
         private string routeswitch, type;
         private int spawncounter = 0;
         private int listcounter = 0;
-        private int o, cp, p, c, n;
+        private int o, p, c, n;
         private object[] obstacletype = new object[5];
 
         // moving car parameters
@@ -67,6 +80,13 @@ namespace Assets.Scripts.Gameplay
         {
             Fill();
             Spawn();
+            foreach (GameObject go in GameObject.FindObjectsOfType(typeof(GameObject)))
+            {
+                if (go.name == "New Game Object")
+                {
+                    Destroy(go);
+                }
+            }
         }
 
         void Fill()
@@ -138,11 +158,12 @@ namespace Assets.Scripts.Gameplay
             {
                 case 1:
                     {
-                        R.Fill(50, 0, 15, 35); // De volgorde is (Obstakels, Powerups, Coins, Niks). Deze moet altijd in zijn totaliteit op 100% uitkomen, met 0% komen ze niet voor.
+                        R.Fill(79, 20, 1, 0); // De volgorde is (Obstakels, Powerups, Coins, Niks). Alles bij elkaar moet altijd in zijn totaliteit op 100% uitkomen, met 0% komt iets niet voor.
                         break;
                     }
                 case 2:
                     {
+                        
                         break;
                     }
                 case 3:
@@ -246,7 +267,6 @@ namespace Assets.Scripts.Gameplay
                     }
                 case 3:
                     {
-                        cp = R.gen.BC.CP;
                         p = R.gen.BC.P;
                         c = R.gen.BC.C;
                         n = R.gen.BC.N;
@@ -261,7 +281,7 @@ namespace Assets.Scripts.Gameplay
                     }
             }
 
-            int chance = GlobalRandom.Next(0, 100);
+            int chance = GlobalRandom.Next(1, 101);
             if (Spawn.obj == null && Spawn.alive)
             {
                 switch (listcounter)
@@ -272,15 +292,15 @@ namespace Assets.Scripts.Gameplay
                             {
                                 Spawn.obj = Obstakel(bigtype);
                             }
-                            else if (chance <= o + p)
+                            else if (chance <= (o + p))
                             {
                                 Spawn.obj = PowerUp(Spawn);
                             }
-                            else if (chance <= o + p + c)
+                            else if (chance <= (o + p + c))
                             {
                                 Spawn.obj = Coins(Spawn);
                             }
-                            else if (chance <= o + p + c + n)
+                            else if (chance <= (o + p + c + n))
                             {
                                 Spawn.alive = false;
                             }
@@ -289,15 +309,15 @@ namespace Assets.Scripts.Gameplay
                     case 1:
                     case 4:
                         {
-                            if (chance <= p)
+                            if (chance <= (p))
                             {
                                 Spawn.obj = PowerUp(Spawn);
                             }
-                            else if (chance <= p + c)
+                            else if (chance <= (p + c))
                             {
                                 Spawn.obj = Coins(Spawn);
                             }
-                            else if (chance <= p + c + n)
+                            else if (chance <= (p + c + n))
                             {
                                 Spawn.alive = false;
                             }
@@ -305,11 +325,11 @@ namespace Assets.Scripts.Gameplay
                         }
                     case 2:
                         {
-                            if (chance <= c)
+                            if (chance <= (c))
                             {
                                 Spawn.obj = Coins(Spawn);
                             }
-                            else if (chance <= c + n)
+                            else if (chance <= (c + n))
                             {
                                 Spawn.alive = false;
                             }
@@ -317,19 +337,15 @@ namespace Assets.Scripts.Gameplay
                         }
                     case 3:
                         {
-                            if (chance <= cp)
+                            if (chance <= (c))
                             {
                                 Spawn.obj = Coins(Spawn);
                             }
-                            else if (chance <= cp + c)
-                            {
-                                Spawn.obj = Coins(Spawn);
-                            }
-                            else if (chance <= cp + c + p)
+                            else if (chance <= (c + p))
                             {
                                 Spawn.obj = PowerUp(Spawn);
                             }
-                            else if (chance <= cp + c + p + n)
+                            else if (chance <= (c + p + n))
                             {
                                 Spawn.alive = false;
                             }
@@ -337,7 +353,7 @@ namespace Assets.Scripts.Gameplay
                         }
                 }
             }
-            o = cp = p = c = n = 0;
+            o  = p = c = n = 0;
         }
 
         GameObject PowerUp(SpawnObject spawn)
@@ -392,7 +408,7 @@ namespace Assets.Scripts.Gameplay
                             }
                             else
                             {
-                                powerup = Coins(spawn);
+                                spawn.alive = false;
                             }
                             break;
                         }
@@ -420,7 +436,7 @@ namespace Assets.Scripts.Gameplay
             }
             else
             {
-                powerup = Coins(spawn);
+                spawn.alive = false;
             }
             return powerup;
         }
@@ -441,40 +457,35 @@ namespace Assets.Scripts.Gameplay
                     }
                 case 2:
                     {
-                        HashSet<int> Row1 = new HashSet<int>() { 0, 3, 6, 9, 12 };
-                        HashSet<int> Row2 = new HashSet<int>() { 1, 4, 7, 10, 13 };
-                        HashSet<int> Row3 = new HashSet<int>() { 2, 5, 8, 11, 14 };
-                        HashSet<int> Row4 = new HashSet<int>() { 15, 18, 21, 24, 27 };
-                        HashSet<int> Row5 = new HashSet<int>() { 16, 19, 22, 25, 28 };
-                        HashSet<int> Row6 = new HashSet<int>() { 17, 20, 23, 26, 29 };
+                        
                         if (coinbowcount <= 10) // een boog met coins is 5 muntjes, de max aantal bogen staat nu dus op 2
                         {
-                            if (Row1.Contains(spawncounter) && GroundSpawns[6].obj != Box && SpawnObstacles[0].obj != null)
+                            if (Bow1.Contains(spawncounter) && GroundSpawns[6].obj != Box && SpawnObstacles[0].obj != null && SpawnObstacles[0].obj != coin)
                             {
                                 coin = Coin;
                                 coinbowcount++;
                             }
-                            else if (Row2.Contains(spawncounter) && GroundSpawns[7].obj != Box && SpawnObstacles[1].obj != null)
+                            else if (Bow2.Contains(spawncounter) && GroundSpawns[7].obj != Box && SpawnObstacles[1].obj != null && SpawnObstacles[1].obj != Coin)
                             {
                                 coin = Coin;
                                 coinbowcount++;
                             }
-                            else if (Row3.Contains(spawncounter) && GroundSpawns[8].obj != Box && SpawnObstacles[2].obj != null)
+                            else if (Bow3.Contains(spawncounter) && GroundSpawns[8].obj != Box && SpawnObstacles[2].obj != null && SpawnObstacles[2].obj != Coin)
                             {
                                 coin = Coin;
                                 coinbowcount++;
                             }
-                            else if (Row4.Contains(spawncounter) && GroundSpawns[18].obj != Box && SpawnObstacles[3].obj != CartoonCar && SpawnObstacles[3].obj != null)
+                            else if (Bow4.Contains(spawncounter) && GroundSpawns[18].obj != Box && SpawnObstacles[3].obj != CartoonCar && SpawnObstacles[3].obj != null && SpawnObstacles[3].obj != Coin)
                             {
                                 coin = Coin;
                                 coinbowcount++;
                             }
-                            else if (Row5.Contains(spawncounter) && GroundSpawns[19].obj != Box && SpawnObstacles[4].obj != CartoonCar && SpawnObstacles[4].obj != null)
+                            else if (Bow5.Contains(spawncounter) && GroundSpawns[19].obj != Box && SpawnObstacles[4].obj != CartoonCar && SpawnObstacles[4].obj != null && SpawnObstacles[4].obj != Coin)
                             {
                                 coin = Coin;
                                 coinbowcount++;
                             }
-                            else if (Row6.Contains(spawncounter) && GroundSpawns[20].obj != Box && SpawnObstacles[5].obj != CartoonCar && SpawnObstacles[5].obj != null)
+                            else if (Bow6.Contains(spawncounter) && GroundSpawns[20].obj != Box && SpawnObstacles[5].obj != CartoonCar && SpawnObstacles[5].obj != null && SpawnObstacles[4].obj != Coin)
                             {
                                 coin = Coin;
                                 coinbowcount++;
@@ -490,15 +501,15 @@ namespace Assets.Scripts.Gameplay
                     {
                         if (spawncounter <= 1 && spawncounter >= 5 && GroundSpawns[6 + (spawncounter * 3)].obj == Box)
                         {
-                            Coin = coin;
+                            Coin = CoinChance();
                         }
                         else if (spawncounter <= 8 && spawncounter >= 12 && GroundSpawns[7 + (spawncounter * 3)].obj == Box)
                         {
-                            Coin = coin;
+                            Coin = CoinChance();
                         }
                         else if (spawncounter <= 15 && spawncounter >= 19 && GroundSpawns[8 + (spawncounter * 3)].obj == Box)
                         {
-                            Coin = coin;
+                            Coin = CoinChance();
                         }
                         else
                         {
@@ -556,28 +567,32 @@ namespace Assets.Scripts.Gameplay
                         if (spawncounter <= 2)
                         {
                             chance = GlobalRandom.Next(2, 5);
-                            Debug.Log("rij van dozen is:" + chance.ToString());
+                            //Debug.Log("rij van dozen is:" + chance.ToString());
+                            if (chance != 4)
+                            {
+                                SpawnObstacles[spawncounter + 3].alive = false;
+                            }
                             for (int i = 0; i < (chance - 1); i++)
                             {
                                 int x = spawncounter + 6;
                                 if ((i + 1) != 3)
                                 {
                                     x += ((i + 1) * 3) + (i * 3);
-                                    Debug.Log(x.ToString());
+                                    //Debug.Log(x.ToString());
                                     GroundSpawns[x].obj = Box;
-                                    GroundSpawns[x - 3].alive = false;
-                                    GroundSpawns[x + 3].alive = false;
+                                    GroundSpawns[x - 3].alive = false; //achter een doos in rij dozen
+                                    GroundSpawns[x + 3].alive = false; //voor een doos in rij dozen
 
                                 }
                                 else
                                 {
-                                    Debug.Log(spawncounter + 3);
+                                    //Debug.Log(spawncounter + 3);
                                     SpawnObstacles[spawncounter + 3].obj = Box;
-                                    GroundSpawns[spawncounter + 18].alive = false;
+                                    GroundSpawns[spawncounter + 18].alive = false; // 2e rij spawnobstacles
                                     GroundSpawns[spawncounter + 21].alive = false;
                                 }
                             }
-                            GroundSpawns[spawncounter + 3].alive = false;
+                            GroundSpawns[spawncounter + 3].alive = false; // 1e rij spawnobstacles
                             GroundSpawns[spawncounter + 6].alive = false;
                             obstakel = Box;
                         }
@@ -596,7 +611,48 @@ namespace Assets.Scripts.Gameplay
                                     GroundSpawns[x].alive = false;
                                 }
                             }
-                            Debug.Log("Bewegende Auto");
+                            AirSpawns[spawncounter].alive = false; // airspawns op de weg van auto disable
+                            AirSpawns[spawncounter - 3].alive = false;
+                            switch (spawncounter) // bowcoins op de weg van de auto op false zetten, 3 wegen
+                            {
+                                case 3:
+                                    {
+                                        foreach (int i in Bow1)
+                                        {
+                                            AirSpawnObstacles[i].alive = false;
+                                        }
+                                        foreach (int i in Row1)
+                                        {
+                                            AirSpawns[i].alive = false;
+                                        }
+                                        break;
+                                    }
+                                case 4:
+                                    {
+                                        foreach (int i in Bow2)
+                                        {
+                                            AirSpawnObstacles[i].alive = false;
+                                        }
+                                        foreach (int i in Row2)
+                                        {
+                                            AirSpawns[i].alive = false;
+                                        }
+                                        break;
+                                    }
+                                case 5:
+                                    {
+                                        foreach (int i in Bow3)
+                                        {
+                                            AirSpawnObstacles[i].alive = false;
+                                        }
+                                        foreach (int i in Row3)
+                                        {
+                                            AirSpawns[i].alive = false;
+                                        }
+                                        break;
+                                    }
+                            }
+                            //Debug.Log("Bewegende Auto");
                             obstakel = CartoonCar;
                         }
                         break;
@@ -623,6 +679,33 @@ namespace Assets.Scripts.Gameplay
                                                 GroundSpawns[x].alive = false;
                                             }
                                         }
+                                        switch (spawncounter) // bowcoins weghalen anders in vrachtwagen
+                                        {
+                                            case 0:
+                                                {
+                                                    foreach (int i in Bow1)
+                                                    {
+                                                        AirSpawnObstacles[i].alive = false;
+                                                    }
+                                                    break;
+                                                }
+                                            case 1:
+                                                {
+                                                    foreach (int i in Bow2)
+                                                    {
+                                                        AirSpawnObstacles[i].alive = false;
+                                                    }
+                                                    break;
+                                                }
+                                            case 2:
+                                                {
+                                                    foreach (int i in Bow3)
+                                                    {
+                                                        AirSpawnObstacles[i].alive = false;
+                                                    }
+                                                    break;
+                                                }
+                                        }
                                         obstakel = Hotdogtruck;
                                         truckcount++;
                                     }
@@ -640,6 +723,33 @@ namespace Assets.Scripts.Gameplay
                                                 x += (i * 3);
                                                 GroundSpawns[x + 12].alive = false;
                                             }
+                                        }
+                                        switch (spawncounter) // bowcoins op de weg van de auto op false zetten, 3 wegen
+                                        {
+                                            case 3:
+                                                {
+                                                    foreach (int i in Bow4)
+                                                    {
+                                                        AirSpawnObstacles[i].alive = false;
+                                                    }
+                                                    break;
+                                                }
+                                            case 4:
+                                                {
+                                                    foreach (int i in Bow5)
+                                                    {
+                                                        AirSpawnObstacles[i].alive = false;
+                                                    }
+                                                    break;
+                                                }
+                                            case 5:
+                                                {
+                                                    foreach (int i in Bow6)
+                                                    {
+                                                        AirSpawnObstacles[i].alive = false;
+                                                    }
+                                                    break;
+                                                }
                                         }
                                         obstakel = Hotdogtruck;
                                         truckcount++;
@@ -673,14 +783,14 @@ namespace Assets.Scripts.Gameplay
                                     else
                                     {
                                         obstakel = Box;
-                                        if (spawncounter >= 2)
+                                        if (spawncounter <= 2)
                                         {
                                             GroundSpawns[spawncounter + 3].alive = false;
                                             GroundSpawns[spawncounter + 6].alive = false;
                                         }
                                         else
                                         {
-                                            Debug.Log((spawncounter + 15).ToString() + " en " + (spawncounter + 18).ToString() + " staat uit");
+                                            //Debug.Log((spawncounter + 15).ToString() + " en " + (spawncounter + 18).ToString() + " staat uit");
                                             GroundSpawns[spawncounter + 15].alive = false;
                                             GroundSpawns[spawncounter + 18].alive = false;
                                         }
@@ -735,49 +845,50 @@ namespace Assets.Scripts.Gameplay
             {
                 if (spawn.alive)
                 {
-                    Debug.Log(counter.ToString() + " " + spawn.loc.transform.position.ToString());
-                    Instantiate(spawn.obj, spawn.loc.position, spawn.loc.rotation);
+                    //Debug.Log(counter.ToString() + " " + spawn.loc.transform.position.ToString());
+                    GameObject spawned = Instantiate(spawn.obj, spawn.loc.position, spawn.loc.rotation) as GameObject;
+                    spawned.transform.parent = GameObject.Find(transform.name + "/Spawner/EnterTrigger").transform;
                     counter++;
                 }
             }
-            counter = 0;
             foreach (SpawnObject spawn in GroundSpawns)
             {
                 if (spawn.alive)
                 {
-                    //Debug.Log("object : " + counter.ToString() + " spawnt " + spawn.obj);
-                    Instantiate(spawn.obj, spawn.loc.position, spawn.loc.rotation);
+                    GameObject spawned = Instantiate(spawn.obj, spawn.loc.position, spawn.loc.rotation) as GameObject;
+                    spawned.transform.parent = GameObject.Find(transform.name + "/Spawner").transform;
                     counter++;
                 }
             }
-            counter = 0;
             foreach (SpawnObject spawn in AirSpawnObstacles)
             {
                 if (spawn.alive)
                 {
-                    //Debug.Log("object : " + counter.ToString() + " spawnt " + spawn.obj);
-                    Instantiate(spawn.obj, spawn.loc.position, spawn.loc.rotation);
-                    counter++;
+                    GameObject spawned = Instantiate(spawn.obj, spawn.loc.position, spawn.loc.rotation) as GameObject;
+                    spawned.transform.parent = GameObject.Find(transform.name + "/Spawner").transform;
                 }
             }
-            counter = 0;
             foreach (SpawnObject spawn in BoxCoins)
             {
                 if (spawn.alive)
                 {
-                    //Debug.Log("object : " + counter.ToString() + " spawnt " + spawn.obj);
-                    Instantiate(spawn.obj, spawn.loc.position, spawn.loc.rotation);
-                    counter++;
+                    GameObject spawned = Instantiate(spawn.obj, spawn.loc.position, spawn.loc.rotation) as GameObject;
+                    spawned.transform.parent = GameObject.Find(transform.name + "/Spawner").transform;
                 }
             }
-            counter = 0;
             foreach (SpawnObject spawn in AirSpawns)
             {
                 if (spawn.alive)
                 {
-                    //Debug.Log("object : " + counter.ToString() + " spawnt " + spawn.obj);
-                    Instantiate(spawn.obj, spawn.loc.position, spawn.loc.rotation);
-                    counter++;
+                    GameObject spawned = Instantiate(spawn.obj, spawn.loc.position, spawn.loc.rotation) as GameObject;
+                    spawned.transform.parent = GameObject.Find(transform.name + "/Spawner").transform;
+                }
+            }
+            foreach (GameObject go in GameObject.FindObjectsOfType(typeof(GameObject)))
+            {
+                if (go.name == "New Game Object")
+                {
+                    Destroy(go);
                 }
             }
         }

@@ -7,10 +7,9 @@ namespace Assets.Scripts.Gameplay.Models
 {
     public class BoxCoin
     {
-        public int CP, C, P, N;
-        public void Fill(int cp, int c, int p, int n)
+        public int C, P, N;
+        public void Fill(int c, int p, int n)
         {
-            CP = cp;
             C = c;
             P = p;
             N = n;

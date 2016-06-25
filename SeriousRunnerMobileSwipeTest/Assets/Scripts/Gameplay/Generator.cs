@@ -14,12 +14,11 @@ namespace Assets.Scripts.Gameplay
         public AirSpawn AS = new AirSpawn();
         public void Fill (int o, int p, int c, int n)
         {
-            int cp = (c + p) / 4;
             SO.Fill(o, p, c, n);
             GS.Fill(p, c, (100 - (p + c)));
             AS.Fill(p, c, (100 - (p + c)));
             ASO.Fill(c, (100 - c));
-            BC.Fill(cp, c, p, (100 - (cp + c + p)));
+            BC.Fill(c, p, (100 - (c + p)));
         }
     }
 }
