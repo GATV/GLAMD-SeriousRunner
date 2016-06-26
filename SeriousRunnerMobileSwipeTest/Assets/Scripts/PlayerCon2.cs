@@ -44,10 +44,10 @@ public class PlayerCon2 : MonoBehaviour
     private float maxSwipeTime = 0.5f;
 
     //jumping
-    private float gravity;
-    private float jumpSpeed;
+    private const float jumpSpeed = 5.0f;
+    private const float gravity = 9.8f;
+    private const float distToGround = 0.2f;
     private float vSpeed;
-    private float distToGround;
     private Vector3 raycastDir;
     private bool switchable;
 
@@ -136,11 +136,8 @@ public class PlayerCon2 : MonoBehaviour
         minutes = 0;
 
         //jumping;
-        gravity = 9.8f;
-        jumpSpeed = 6.0f;
         vSpeed = 0.0f;
-        distToGround = 0.2f;
-        raycastDir = new Vector3(0, -1, 0);
+        raycastDir = Vector3.down;
 
         xPosition = transform.position.x;
         yPosition = transform.position.y;
@@ -480,16 +477,18 @@ public class PlayerCon2 : MonoBehaviour
         //Timetracking
         if (!finished)
         {
-            //adding seconds
+            //seconds
             seconds += Time.deltaTime;
-            //adding minutes
+            //minutes
             if (Mathf.Floor(seconds) >= 60)
             {
                 seconds = 0;
                 minutes++;
             }
             TimeText.text = string.Format("{0:00} : {1:00}", minutes, Mathf.Floor(seconds));
+            //TimeText.text = TimeSpan.FromSeconds(gameTime).ToString("mm:ss");
         }
+        //End Timetracking
 
         //Speed power-up
         if (speed > setSpeed)
