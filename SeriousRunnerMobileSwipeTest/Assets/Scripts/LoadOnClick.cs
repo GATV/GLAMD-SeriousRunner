@@ -7,52 +7,50 @@ using UnityEngine.SceneManagement;
 public class LoadOnClick : MonoBehaviour
 {
 
-  private bool loadScene = false;
+    private bool loadScene = false;
 
-  [SerializeField]
-  private int scene;
-  [SerializeField]
-  private Text loadingText;
+    [SerializeField]
+    private int scene;
+    [SerializeField]
+    private Image loadingIMG;
 
-  private bool loadEnabled = false;
+    private bool loadEnabled = false;
 
-  public int LoadEnabled
-  {
-    set
+    public int LoadEnabled
     {
-      scene = value;
-      loadEnabled = true;
-    }
-  }
-
-  // Update is called once per frame
-  void Update()
-  {
-    if (!loadScene && loadEnabled)
-    {
-      loadScene = true;
-      loadingText.text = "Loading...";
-      StartCoroutine(LoadNewScene());
+        set
+        {
+            scene = value;
+            loadEnabled = true;
+        }
     }
 
-    if (loadScene == true)
+    // Update is called once per frame
+    void Update()
     {
-      loadingText.color = new Color(loadingText.color.r,
-                                    loadingText.color.g,
-                                    loadingText.color.b,
-                                    Mathf.PingPong(Time.time, 1));
+        if (!loadScene && loadEnabled)
+        {
+            loadScene = true;
+            StartCoroutine(LoadNewScene());
+        }
+
+        if (loadScene == true)
+        {
+            loadingIMG.color = new Color(loadingIMG.color.r,
+                                          loadingIMG.color.g,
+                                          loadingIMG.color.b,
+                                          Mathf.PingPong(Time.time, 1));
+        }
     }
-  }
 
-  private IEnumerator LoadNewScene()
-  {
-    yield return new WaitForSeconds(3);
-
-    AsyncOperation async = SceneManager.LoadSceneAsync(scene);
-
-    while (!async.isDone)
+    private IEnumerator LoadNewScene()
     {
-      yield return null;
+        yield return new WaitForSeconds(5);
+
+        if (scene == 1)
+        {
+            MPScript.Data.SkipLogin = true;
+        }
+        SceneManager.LoadScene(scene);
     }
-  }
 }

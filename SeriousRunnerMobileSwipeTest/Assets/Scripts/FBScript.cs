@@ -3,9 +3,11 @@ using System.Collections;
 using Facebook.Unity;
 using System;
 using System.Collections.Generic;
+using GameUp;
 
 public class FBScript : MonoBehaviour
-{   
+{
+    public static FBScript Instance;
     public string mixpanelToken;
     public GameObject CameraGuide;
 
@@ -13,13 +15,29 @@ public class FBScript : MonoBehaviour
 
     void Awake()
     {
-        FB.Init(SetInit, OnHideUnity);
+        if (Instance == null)
+        {
+            Instance = this;
+            FB.Init(SetInit, OnHideUnity);
 
-        Mixpanel.Token = mixpanelToken;
-        Mixpanel.SuperProperties.Add("platform", Application.platform.ToString());
-        Mixpanel.SuperProperties.Add("quality", QualitySettings.names[QualitySettings.GetQualityLevel()]);
-        Mixpanel.SuperProperties.Add("fullscreen", Screen.fullScreen);
-        Mixpanel.SuperProperties.Add("resolution", Screen.width + "x" + Screen.height);
+            Mixpanel.Token = mixpanelToken;
+            Mixpanel.SuperProperties.Add("platform", Application.platform.ToString());
+            Mixpanel.SuperProperties.Add("quality", QualitySettings.names[QualitySettings.GetQualityLevel()]);
+            Mixpanel.SuperProperties.Add("fullscreen", Screen.fullScreen);
+            Mixpanel.SuperProperties.Add("resolution", Screen.width + "x" + Screen.height);
+
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (Instance != this)
+        {
+            if (MPScript.Data.SkipLogin)
+            {
+                if (FB.IsLoggedIn)
+                    CameraGuide.GetComponent<MenuCamController>().setMount(Mount);
+                MPScript.Data.SkipLogin = false;
+            }
+            Destroy(gameObject);
+        }              
     }
 
     private void SetInit()
@@ -48,8 +66,12 @@ public class FBScript : MonoBehaviour
 
     public void FBLogIn()
     {
+        if (FB.IsLoggedIn)
+            FB.LogOut();
+
         IEnumerable<string> permissions = new string[] { "public_profile", "email" };
         FB.LogInWithReadPermissions(permissions, AuthCallBack);
+        
     }
 
     public void FBLogOut()
@@ -76,20 +98,54 @@ public class FBScript : MonoBehaviour
             {
 
                 Debug.Log("FB is not logged in");
-            }                       
+            }
         }
+    }
+
+    private void onError(int statusCode, string reason)
+    {
+        Debug.LogFormat("Something went wrong with the HeroicLabs SDK ({0} - {1}", statusCode, reason);
     }
 
     private void RetrieveName(IGraphResult result)
     {
-        Mixpanel.DistinctID = (string)result.ResultDictionary["id"];
+        string id = (string)result.ResultDictionary["id"];
+        string name = String.Format("{0} {1}", result.ResultDictionary["first_name"], result.ResultDictionary["last_name"]);
+
+        // HeroicLabs
+        Client.ApiKey = "31c210da7f0b4110bc301544870733d6";
+        Client.Ping(onError);
+        Client.LoginOAuthFacebook(AccessToken.CurrentAccessToken.TokenString, (SessionClient session) =>
+        {
+            MPScript.Data.SessionClient = session;
+            MPScript.Data.SessionClient.Gamer((Gamer gamer) =>
+            {
+                string nickname = name.Replace(' ', '_');
+                if (gamer.Nickname != nickname)
+                {
+                    MPScript.Data.SessionClient.UpdateGamer(nickname, onSuccess,
+                    onError);
+                }
+            }, onError);
+        }, onError);
+        
+        // API
+        APIController.SavePlayer(id, name);
+
+        // Mixpanel
+        Mixpanel.DistinctID = id;
         Mixpanel.SendUser(new Dictionary<string, object>
         {
             { "$first_name", result.ResultDictionary["first_name"] },
             { "$last_name", result.ResultDictionary["last_name"] },
-            { "$name", String.Format("{0} {1}", result.ResultDictionary["first_name"], result.ResultDictionary["last_name"]) },
+            { "$name", name },
             { "$email", result.ResultDictionary.ContainsKey("email") ? result.ResultDictionary["email"] : "-" }
         });
-        Mixpanel.SendEvent("Login");       
+        Mixpanel.SendEvent("Login");
+    }
+
+    private void onSuccess()
+    {
+        Debug.Log("Added player on HeroicLabs");
     }
 }

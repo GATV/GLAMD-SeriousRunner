@@ -191,97 +191,97 @@ public class PlayerCon2 : MonoBehaviour
 
                             if (swipeType.x != 0.0f)
                             {
-                if (swipeType.x > 0.0f)
-                {
-                  //right
-                  if (currentLane < Lane.Right && switchable && !paused && !isAllowedTurn)
-                  {
-                    currentLane++;
-                    //controller.Move(directionMovements[GetDirection(Turn.Right)] * laneDistance);
+                                if (swipeType.x > 0.0f)
+                                {
+                                    //right
+                                    if (currentLane < Lane.Right && switchable && !paused && !isAllowedTurn)
+                                    {
+                                        currentLane++;
+                                        //controller.Move(directionMovements[GetDirection(Turn.Right)] * laneDistance);
 
-                    //new
-                    switch (currentDirection)
-                    {
-                      case Direction.North:
-                        xPosition += 2;
-                        break;
-                      case Direction.East:
-                        yPosition -= 2;
-                        break;
-                      case Direction.West:
-                        yPosition += 2;
-                        break;
-                      case Direction.South:
-                        xPosition -= 2;
-                        break;
-                    }
+                                        //new
+                                        switch (currentDirection)
+                                        {
+                                            case Direction.North:
+                                                xPosition += 2;
+                                                break;
+                                            case Direction.East:
+                                                yPosition -= 2;
+                                                break;
+                                            case Direction.West:
+                                                yPosition += 2;
+                                                break;
+                                            case Direction.South:
+                                                xPosition -= 2;
+                                                break;
+                                        }
 
 
-                  }
-                  else if (isAllowedTurn && turnDirectionAllowed != Turn.Left)
-                  {
-                    if (turnRotationValue + 90 > 350)
-                      turnRotationValue = 0.0f;
-                    else
-                      turnRotationValue += 90.0f;
+                                    }
+                                    else if (isAllowedTurn && turnDirectionAllowed != Turn.Left)
+                                    {
+                                        if (turnRotationValue + 90 > 350)
+                                            turnRotationValue = 0.0f;
+                                        else
+                                            turnRotationValue += 90.0f;
 
-                    turningVectorValue = new Vector3(0, turnRotationValue, 0);
-                    iTween.RotateTo(gameObject, turningVectorValue, 1.0f);
-                    currentDirection = GetDirection(Turn.Right);
-                    isAllowedTurn = false;
-                    TurnMade(Turn.Right);
-                    //Nieuw
-                    xPosition = transform.position.x;
-                    yPosition = transform.position.z;
-                  }
-                }
-                else
-                {
-                  //left
-                  if (currentLane > Lane.Left && !paused && switchable && !isAllowedTurn)
-                  {
-                    currentLane--;
-                    //controller.Move(directionMovements[GetDirection(Turn.Left)] * laneDistance);
-                    //Nieuw
-                    switch (currentDirection)
-                    {
-                      case Direction.North:
-                        xPosition -= 2;
-                        break;
-                      case Direction.East:
-                        yPosition += 2;
-                        break;
-                      case Direction.West:
-                        yPosition -= 2;
-                        break;
-                      case Direction.South:
-                        xPosition += 2;
-                        break;
-                    }
+                                        turningVectorValue = new Vector3(0, turnRotationValue, 0);
+                                        iTween.RotateTo(gameObject, turningVectorValue, 1.0f);
+                                        currentDirection = GetDirection(Turn.Right);
+                                        isAllowedTurn = false;
+                                        TurnMade(Turn.Right);
+                                        //Nieuw
+                                        xPosition = transform.position.x;
+                                        yPosition = transform.position.z;
+                                    }
+                                }
+                                else
+                                {
+                                    //left
+                                    if (currentLane > Lane.Left && !paused && switchable && !isAllowedTurn)
+                                    {
+                                        currentLane--;
+                                        //controller.Move(directionMovements[GetDirection(Turn.Left)] * laneDistance);
+                                        //Nieuw
+                                        switch (currentDirection)
+                                        {
+                                            case Direction.North:
+                                                xPosition -= 2;
+                                                break;
+                                            case Direction.East:
+                                                yPosition += 2;
+                                                break;
+                                            case Direction.West:
+                                                yPosition -= 2;
+                                                break;
+                                            case Direction.South:
+                                                xPosition += 2;
+                                                break;
+                                        }
 
-                  }
-                  else if (isAllowedTurn && turnDirectionAllowed != Turn.Right)
-                  {
-                    if (turnRotationValue - 90 < -350)
-                      turnRotationValue = 0.0f;
-                    else
-                      turnRotationValue -= 90.0f;
+                                    }
+                                    else if (isAllowedTurn && turnDirectionAllowed != Turn.Right)
+                                    {
+                                        if (turnRotationValue - 90 < -350)
+                                            turnRotationValue = 0.0f;
+                                        else
+                                            turnRotationValue -= 90.0f;
 
-                    turningVectorValue = new Vector3(0, turnRotationValue, 0);
-                    iTween.RotateTo(gameObject, turningVectorValue, 1.0f);
-                    //transform.Rotate(0, -90, 0);    
-                    currentDirection = GetDirection(Turn.Left);
-                    isAllowedTurn = false;
-                    TurnMade(Turn.Left);
-                    //Nieuw
-                    xPosition = transform.position.x;
-                    yPosition = transform.position.z;
-                  }
-                }
-              }
+                                        turningVectorValue = new Vector3(0, turnRotationValue, 0);
+                                        iTween.RotateTo(gameObject, turningVectorValue, 1.0f);
+                                        //transform.Rotate(0, -90, 0);    
+                                        currentDirection = GetDirection(Turn.Left);
+                                        isAllowedTurn = false;
+                                        TurnMade(Turn.Left);
+                                        //Nieuw
+                                        xPosition = transform.position.x;
+                                        yPosition = transform.position.z;
+                                    }
+                                }
+                            }
 
-              if (swipeType.y != 0.0f)
-              {
+                            if (swipeType.y != 0.0f)
+                            {
                                 if (swipeType.y > 0.0f)
                                 {
                                     //jump
@@ -533,10 +533,10 @@ public class PlayerCon2 : MonoBehaviour
         SceneManager.LoadScene("SeriousRunnerTest");
     }
 
-  public void PauseOff()
-  {
-    Time.timeScale = 1f;
-  }
+    public void PauseOff()
+    {
+        Time.timeScale = 1f;
+    }
 
     public void buttonPauseClick()
     {
@@ -620,27 +620,13 @@ public class PlayerCon2 : MonoBehaviour
                 { "coins", count }
             });
 
-            Client.ApiKey = heroicLabsId;
-            Client.Ping(onError);
-            Client.LoginOAuthFacebook(AccessToken.CurrentAccessToken.TokenString, onLogin, onError);
+            MPScript.Data.SessionClient.UpdateLeaderboard(leaderboardsId, (long)(500 - (minutes * 60 + Mathf.Floor(seconds)) + count * 2), onLeaderboardUpdated, onError);
         }
     }
 
     private void onError(int statusCode, string reason)
     {
         Debug.LogFormat("Something went wrong with the HeroicLabs SDK ({0} - {1}", statusCode, reason);
-    }
-
-    private void onLogin(SessionClient session)
-    {
-        session.Gamer(g =>
-        {
-            if (g.Name.Replace(' ', '_') != g.Nickname)
-            {
-                session.UpdateGamer(g.Name.Replace(' ', '_'), onSuccess, onError);
-            }
-        }, onError);
-        session.UpdateLeaderboard(leaderboardsId, (long)(500 - (minutes * 60 + Mathf.Floor(seconds)) + count * 2), onLeaderboardUpdated, onError);
     }
 
     private void onSuccess()
