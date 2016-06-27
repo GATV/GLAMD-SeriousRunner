@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using GameUp;
 using Facebook.Unity;
 using Assets.Scripts;
+using Assets.Scripts.Helpers;
 
 public class PlayerCon2 : MonoBehaviour
 {
@@ -621,13 +622,24 @@ public class PlayerCon2 : MonoBehaviour
             {
                 Mixpanel.SendEvent("Multiplayer Game Finished", new Dictionary<string, object>
                 {
-                    { "challenger", MPScript.Data.Match.ChallengerId },
                     { "opponent", MPScript.Data.Match.OpponentId },
                     { "score", score },
                     { "seconds", minutes * 60 + seconds },
                     { "coins", coins }
                 });
                 APIController.UpdateMatch(new Guid(MPScript.Data.Match.MatchId), (int)score, true);
+            }
+            else if (MPScript.Data.ChallengedPlayers != null)
+            {
+                Guid replayId = APIController.SaveReplay(replay.ToString());
+                Mixpanel.SendEvent("Multiplayer Game Challenged", new Dictionary<string, object>
+                {
+                    { "score", score },
+                    { "seconds", minutes * 60 + seconds },
+                    { "coins", coins }
+                });
+                foreach (Player player in MPScript.Data.ChallengedPlayers)
+                    APIController.SaveMatch(Mixpanel.DistinctID, (int)score, player.PlayerId, replayId, GlobalRandom.Seed);
             }
             else
             {

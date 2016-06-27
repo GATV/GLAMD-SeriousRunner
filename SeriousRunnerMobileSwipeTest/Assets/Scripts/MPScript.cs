@@ -4,6 +4,7 @@ using Assets.Scripts.Helpers;
 using System;
 using GameUp;
 using Match = Assets.Scripts.Match;
+using System.Collections.Generic;
 
 public class MPScript : MonoBehaviour
 {
@@ -14,10 +15,12 @@ public class MPScript : MonoBehaviour
     public string ReplayData { get; set; }
     public SessionClient SessionClient { get; set; }
     public Match Match { get; set; }
+    public Player[] ChallengedPlayers { get; set; }
 
     public void Clean()
     {
         GlobalRandom.Seed = DateTime.Now.Millisecond;
+        ChallengedPlayers = null;
         ReplayData = null;
         Match = null;
     }

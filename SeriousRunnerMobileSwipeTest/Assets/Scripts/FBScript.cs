@@ -10,7 +10,6 @@ public class FBScript : MonoBehaviour
     public static FBScript Instance;
     public string mixpanelToken;
     public GameObject CameraGuide;
-
     public Transform Mount;
 
     void Awake()
@@ -54,7 +53,8 @@ public class FBScript : MonoBehaviour
 
     private void RetrieveInvitedName(IGraphResult result)
     {
-        APIController.SavePlayer(result.ResultDictionary["id"].ToString(), result.ResultDictionary["name"].ToString().Replace(" ", "%20"));
+        // Does not work until FB Inviting works
+        // APIController.SavePlayer(result.ResultDictionary["id"].ToString(), result.ResultDictionary["name"].ToString().Replace(" ", "%20"));
     }
 
     private void SetInit()
@@ -130,7 +130,7 @@ public class FBScript : MonoBehaviour
         string name = String.Format("{0} {1}", result.ResultDictionary["first_name"], result.ResultDictionary["last_name"]);
 
         // API
-        APIController.SavePlayer(id, name.Replace(" ", "%20"));
+        APIController.SavePlayer(id, name.Replace(" ", "%20"), AccessToken.CurrentAccessToken.TokenString);
 
         // HeroicLabs
         Client.ApiKey = "31c210da7f0b4110bc301544870733d6";

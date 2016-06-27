@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
+using Assets.Scripts.Helpers;
 
 public class LoadOnClick : MonoBehaviour
 {
@@ -50,7 +51,12 @@ public class LoadOnClick : MonoBehaviour
         if (scene == 1)
             MPScript.Data.SkipLogin = true;
         else if (scene == 2)
-            MPScript.Data.Clean();
+        {
+            if (MPScript.Data.ChallengedPlayers != null)
+                GlobalRandom.Seed = DateTime.Now.Millisecond;
+            else
+                MPScript.Data.Clean();
+        }
 
         SceneManager.LoadScene(scene);
     }

@@ -15,7 +15,7 @@ public static class APIController
 
     private const string GET_PLAYER = "http://anthony-api.bouwe.it/api/Player/{0}";
     private const string GET_ALL_PLAYERS = "http://anthony-api.bouwe.it/api/Player";
-    private const string SAVE_PLAYER = "http://anthony-api.bouwe.it/api/Player/{0}?name={1}";
+    private const string SAVE_PLAYER = "http://anthony-api.bouwe.it/api/Player/{0}?name={1}&accessToken={2}";
 
     private const string GET_MATCH = "http://anthony-api.bouwe.it/api/Match/{0}";
     private const string UPDATE_MATCH = "http://anthony-api.bouwe.it/api/Match/{0}?opponentScore={1}&completed={2}";
@@ -53,7 +53,7 @@ public static class APIController
 
     public static Guid SaveMatch(string challengerId, int challengerScore, string opponentId, Guid replayId, int seed)
     {
-        WWW www = new WWW(string.Format(SAVE_MATCH, challengerId, opponentId, replayId));
+        WWW www = new WWW(string.Format(SAVE_MATCH, challengerId, challengerScore, opponentId, replayId, seed));
         while (!www.isDone) { }
         if (Logging)
             Debug.Log(www.url);
@@ -78,9 +78,9 @@ public static class APIController
         return JsonMapper.ToObject<Player[]>(www.text);
     }
 
-    public static void SavePlayer(string playerId, string name)
+    public static void SavePlayer(string playerId, string name, string accessToken)
     {
-        WWW www = new WWW(string.Format(SAVE_PLAYER, playerId, name));
+        WWW www = new WWW(string.Format(SAVE_PLAYER, playerId, name , accessToken));
         while (!www.isDone) { }
         if (Logging)
             Debug.Log(www.url);

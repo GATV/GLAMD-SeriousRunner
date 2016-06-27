@@ -27,4 +27,14 @@ public class ButtionActionHolder : MonoBehaviour
     {
         ScrollviewLeaderbord.UpdateList();
     }
+
+    public void UpdateFriendList()
+    {
+        ScrollviewFriendList.UpdateList();
+    }
+
+    public void UpdateDevSkipList()
+    {
+        ScrollViewDevSkip.UpdateList();
+    }
 }
