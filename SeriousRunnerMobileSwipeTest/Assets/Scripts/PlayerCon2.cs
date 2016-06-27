@@ -86,13 +86,15 @@ public class PlayerCon2 : MonoBehaviour
     public Animator animator;
 
     //UI
-    public Text countText;
+    public Text coinText;
     public Text TimeText;
     public Text scoreText;
+    public Text obstacleText;
     private float seconds;
     private float minutes;
     private float score;
-    public int count;
+    public int coins;
+    public int obstacles;
 
     public FadeInAndOut FinishPanel;
 
@@ -126,14 +128,16 @@ public class PlayerCon2 : MonoBehaviour
         };
 
         controller = GetComponent<CharacterController>();
-        count = 0;
-        SetCountText();
         animator = GetComponent<Animator>();
         setSpeed = speed;
         switchable = true;
         isDoubleBoost = false;
+
+        //UI
         seconds = 0;
         minutes = 0;
+        coins = 0;
+        obstacles = 0;
 
         //jumping;
         vSpeed = 0.0f;
@@ -610,17 +614,17 @@ public class PlayerCon2 : MonoBehaviour
             animator.Play("Wary");
             finished = true;
             FinishPanel.FadeIn();
-            score = (500 - ((minutes * 60) + Mathf.Floor(seconds))) + (count * 2);
+            score = GetFinalScore();
             scoreText.text = "Score: " + score.ToString();
 
             Mixpanel.SendEvent("Game Finished", new Dictionary<string, object>
             {
                 { "score", score },
                 { "seconds", minutes * 60 + seconds },
-                { "coins", count }
+                { "coins", coins }
             });
 
-            MPScript.Data.SessionClient.UpdateLeaderboard(leaderboardsId, (long)(500 - (minutes * 60 + Mathf.Floor(seconds)) + count * 2), onLeaderboardUpdated, onError);
+            MPScript.Data.SessionClient.UpdateLeaderboard(leaderboardsId, (long)score, onLeaderboardUpdated, onError);
         }
     }
 
@@ -639,9 +643,9 @@ public class PlayerCon2 : MonoBehaviour
         Debug.Log("Added score: " + rank.Score);
     }
 
-    public void SetCountText()
+    public void SetCoinText()
     {
-        countText.text = count.ToString();
+        coinText.text = coins.ToString();
     }
 
     public void TurnMade(Turn t)
@@ -835,5 +839,10 @@ public class PlayerCon2 : MonoBehaviour
     public Vector3 getPlayerPos()
     {
         return new Vector3(transform.position.x, transform.position.y, transform.position.z);
+    }
+
+    public float GetFinalScore()
+    {
+        return (500 - ((minutes * 60) + Mathf.Floor(seconds))) + (coins * 2) + (obstacles * 2);
     }
 }

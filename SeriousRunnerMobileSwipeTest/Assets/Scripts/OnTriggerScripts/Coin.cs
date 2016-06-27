@@ -27,10 +27,10 @@ public class Coin : MonoBehaviour
         Destroy(gameObject);
         if (playerCon.isDoubleBoost)
         {
-            playerCon.count += 2;
+            playerCon.coins += 2;
         }
-        else playerCon.count++;
+        else playerCon.coins++;
         playerCon.coinInstance = (GameObject)Instantiate(playerCon.coinPrefab, playerCon.getPlayerPos(), Quaternion.identity);
-        playerCon.SetCountText();
+        playerCon.SetCoinText();
     }
 }
