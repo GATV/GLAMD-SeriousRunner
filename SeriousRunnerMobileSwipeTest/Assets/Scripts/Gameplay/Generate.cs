@@ -9,7 +9,7 @@ using Facebook.Unity;
 using System.Linq;
 using System.Text;
 using Assets.Scripts.Gameplay.Models;
-using Assets.Scripts.Gameplay.Helpers;
+using Assets.Scripts.Helpers;
 
 namespace Assets.Scripts.Gameplay
 {

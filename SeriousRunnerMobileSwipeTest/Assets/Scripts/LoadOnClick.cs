@@ -48,9 +48,10 @@ public class LoadOnClick : MonoBehaviour
         yield return new WaitForSeconds(5);
 
         if (scene == 1)
-        {
             MPScript.Data.SkipLogin = true;
-        }
+        else if (scene == 2)
+            MPScript.Data.Clean();
+
         SceneManager.LoadScene(scene);
     }
 }

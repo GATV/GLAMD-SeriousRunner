@@ -617,14 +617,29 @@ public class PlayerCon2 : MonoBehaviour
             score = GetFinalScore();
             scoreText.text = "Score: " + score.ToString();
 
-            Mixpanel.SendEvent("Game Finished", new Dictionary<string, object>
+            if (MPScript.Data.Match != null)
             {
-                { "score", score },
-                { "seconds", minutes * 60 + seconds },
-                { "coins", coins }
-            });
-
-            MPScript.Data.SessionClient.UpdateLeaderboard(leaderboardsId, (long)score, onLeaderboardUpdated, onError);
+                Mixpanel.SendEvent("Multiplayer Game Finished", new Dictionary<string, object>
+                {
+                    { "challenger", MPScript.Data.Match.ChallengerId },
+                    { "opponent", MPScript.Data.Match.OpponentId },
+                    { "score", score },
+                    { "seconds", minutes * 60 + seconds },
+                    { "coins", coins }
+                });
+                APIController.UpdateMatch(new Guid(MPScript.Data.Match.MatchId), (int)score, true);
+            }
+            else
+            {
+                Mixpanel.SendEvent("Game Finished", new Dictionary<string, object>
+                {
+                    { "score", score },
+                    { "seconds", minutes * 60 + seconds },
+                    { "coins", coins }
+                });
+                MPScript.Data.SessionClient.UpdateLeaderboard(leaderboardsId, (long)score, onLeaderboardUpdated, onError);
+            }
+            MPScript.Data.Clean();
         }
     }
 

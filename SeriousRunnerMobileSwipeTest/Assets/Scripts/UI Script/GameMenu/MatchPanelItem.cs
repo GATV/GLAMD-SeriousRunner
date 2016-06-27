@@ -3,6 +3,9 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts;
+using UnityEngine.SceneManagement;
+using Assets.Scripts.Helpers;
+using System;
 
 public class MatchPanelItem : MonoBehaviour
 {
@@ -20,19 +23,19 @@ public class MatchPanelItem : MonoBehaviour
 
     public void SetMatchInfo(Match match)
     {
-        this.match = match;        
-        
+        this.match = match;
+
         if (Mixpanel.DistinctID == match.ChallengerId)
         {
             friendId = match.OpponentId;
             theirScore = match.OpponentScore;
-            myScore = match.ChallengerScore;                 
+            myScore = match.ChallengerScore;
         }
         else
         {
             friendId = match.ChallengerId;
             theirScore = match.ChallengerScore;
-            myScore = match.OpponentScore;            
+            myScore = match.OpponentScore;
         }
 
         if (theirScore == -1)
@@ -50,7 +53,7 @@ public class MatchPanelItem : MonoBehaviour
     }
 
     public void SetMatchButtonColor()
-    {      
+    {
         if (match.Completed)
         {
             // Challenger wins if it's a draw
@@ -58,8 +61,8 @@ public class MatchPanelItem : MonoBehaviour
             {
                 // Gewonnen
                 matchButtonText.text = "Gewonnen";
-                matchButton.interactable = false;                
-                imgBackground.color = new Color(0.2f, 0.75f, 0.2f, 1);                
+                matchButton.interactable = false;
+                imgBackground.color = new Color(0.2f, 0.75f, 0.2f, 1);
             }
             else
             {
@@ -85,13 +88,14 @@ public class MatchPanelItem : MonoBehaviour
                 matchButton.interactable = false;
                 imgBackground.color = new Color(0.1f, 0.65f, 0.8f, 1);
             }
-        }    
-    }    
+        }
+    }
 
     public void Button_Click()
     {
-        // Play
-        if (matchButton.interactable)
-            Debug.Log("Let's go!");        
+        MPScript.Data.Match = match;
+        MPScript.Data.ReplayData = APIController.GetReplay(new Guid(match.ReplayId));
+        GlobalRandom.Seed = match.Seed;
+        SceneManager.LoadScene(2);
     }
 }

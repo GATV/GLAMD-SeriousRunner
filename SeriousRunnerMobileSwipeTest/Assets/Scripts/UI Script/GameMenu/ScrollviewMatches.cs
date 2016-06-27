@@ -23,14 +23,17 @@ public class ScrollviewMatches : MonoBehaviour
 
         matches = APIController.GetMatches(Mixpanel.DistinctID);
 
-        foreach (Match m in matches.OrderByDescending(x => x.Date))
+        if (matches != null)
         {
-            GameObject objToInstantiate = Instantiate(template);
-            objToInstantiate.SetActive(true);
-            MatchPanelItem MPI = objToInstantiate.GetComponent<MatchPanelItem>();
-            MPI.SetMatchInfo(m);
-            objToInstantiate.transform.SetParent(content.transform, false);
-            MPI.scrollView = scrollView;
+            foreach (Match m in matches.OrderByDescending(x => x.Date))
+            {
+                GameObject objToInstantiate = Instantiate(template);
+                objToInstantiate.SetActive(true);
+                MatchPanelItem MPI = objToInstantiate.GetComponent<MatchPanelItem>();
+                MPI.SetMatchInfo(m);
+                objToInstantiate.transform.SetParent(content.transform, false);
+                MPI.scrollView = scrollView;
+            }
         }
     }
 
@@ -40,7 +43,7 @@ public class ScrollviewMatches : MonoBehaviour
     {
         template = template_MatchItem;
         content = scrollContent;
-        scrollView = this;        
+        scrollView = this;
     }
 
     // Update is called once per frame

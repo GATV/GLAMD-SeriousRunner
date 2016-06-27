@@ -28,10 +28,10 @@ public class Gem : MonoBehaviour
         gameObject.SetActive(false);
         if (!playerCon.isDoubleBoost)
         {
-            playerCon.count = playerCon.count + 5;
+            playerCon.coins = playerCon.coins + 5;
         }
-        else playerCon.count = playerCon.count + 10;
-        playerCon.SetCountText();
+        else playerCon.coins = playerCon.coins + 10;
+        playerCon.SetCoinText();
     }
 }
 

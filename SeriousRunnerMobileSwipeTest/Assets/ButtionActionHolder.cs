@@ -3,6 +3,11 @@ using System.Collections;
 
 public class ButtionActionHolder : MonoBehaviour
 {
+    public void AppRequest()
+    {
+        FBScript.Instance.Invite();
+    }
+
     public void LoginFacebook()
     {
         FBScript.Instance.FBLogIn();

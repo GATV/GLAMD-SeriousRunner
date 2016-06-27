@@ -37,7 +37,24 @@ public class FBScript : MonoBehaviour
                 MPScript.Data.SkipLogin = false;
             }
             Destroy(gameObject);
-        }              
+        }
+    }
+
+    public void Invite()
+    {
+        FB.AppRequest("You have been invited to play!", OGActionType.TURN, null, null, null, null, AfterInvite);
+    }
+
+    private void AfterInvite(IAppRequestResult result)
+    {
+        if (result.To != null)
+            foreach (string id in result.To)
+                FB.API("/id", HttpMethod.GET, RetrieveInvitedName);
+    }
+
+    private void RetrieveInvitedName(IGraphResult result)
+    {
+        APIController.SavePlayer(result.ResultDictionary["id"].ToString(), result.ResultDictionary["name"].ToString().Replace(" ", "%20"));
     }
 
     private void SetInit()
@@ -71,7 +88,7 @@ public class FBScript : MonoBehaviour
 
         IEnumerable<string> permissions = new string[] { "public_profile", "email" };
         FB.LogInWithReadPermissions(permissions, AuthCallBack);
-        
+
     }
 
     public void FBLogOut()
@@ -112,6 +129,9 @@ public class FBScript : MonoBehaviour
         string id = (string)result.ResultDictionary["id"];
         string name = String.Format("{0} {1}", result.ResultDictionary["first_name"], result.ResultDictionary["last_name"]);
 
+        // API
+        APIController.SavePlayer(id, name.Replace(" ", "%20"));
+
         // HeroicLabs
         Client.ApiKey = "31c210da7f0b4110bc301544870733d6";
         Client.Ping(onError);
@@ -128,9 +148,6 @@ public class FBScript : MonoBehaviour
                 }
             }, onError);
         }, onError);
-        
-        // API
-        APIController.SavePlayer(id, name);
 
         // Mixpanel
         Mixpanel.DistinctID = id;
