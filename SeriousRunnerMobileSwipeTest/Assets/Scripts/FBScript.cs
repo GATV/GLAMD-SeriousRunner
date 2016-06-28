@@ -31,8 +31,7 @@ public class FBScript : MonoBehaviour
         {
             if (MPScript.Data.SkipLogin)
             {
-                if (FB.IsLoggedIn)
-                    CameraGuide.GetComponent<MenuCamController>().setMount(Mount);
+                CameraGuide.GetComponent<MenuCamController>().setMount(Mount);
                 MPScript.Data.SkipLogin = false;
             }
             Destroy(gameObject);
@@ -126,6 +125,9 @@ public class FBScript : MonoBehaviour
 
     private void RetrieveName(IGraphResult result)
     {
+        foreach (var a in result.ResultDictionary)
+            Debug.Log(a.Key + "-" + a.Value);
+
         string id = (string)result.ResultDictionary["id"];
         string name = String.Format("{0} {1}", result.ResultDictionary["first_name"], result.ResultDictionary["last_name"]);
 

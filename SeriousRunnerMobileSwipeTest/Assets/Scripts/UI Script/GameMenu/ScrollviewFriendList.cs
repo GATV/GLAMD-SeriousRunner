@@ -21,6 +21,11 @@ public class ScrollviewFriendList : MonoBehaviour
 
     public static void UpdateList()
     {
+        foreach (Transform item in content.transform)
+        {
+            Destroy(item.gameObject);
+        }
+
         Player[] players = APIController.GetAllPlayers();
 
         foreach (Player p in players.Where(x => x.PlayerId != Mixpanel.DistinctID))
