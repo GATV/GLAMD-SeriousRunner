@@ -45,6 +45,8 @@ public class ReplayGhostController : MonoBehaviour
             CancelInvoke("UpdateOrientation");
             animator.SetFloat("Speed", 0);
             animator.Play("Wary");
+            float offset = gameObject.transform.position.y;
+            iTween.MoveTo(gameObject, gameObject.transform.position - new Vector3(0, offset, 0), 0.5f);
         }
     }
 }

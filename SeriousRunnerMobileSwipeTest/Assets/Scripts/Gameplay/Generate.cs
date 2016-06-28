@@ -53,7 +53,7 @@ namespace Assets.Scripts.Gameplay
         HashSet<int> Bow6 = new HashSet<int>() { 17, 20, 23, 26, 29 };
 
         // rows met autowegen voor groundobstacles
-        HashSet<int> Row1 = new HashSet<int>() { 0, 3, 6};
+        HashSet<int> Row1 = new HashSet<int>() { 0, 3, 6 };
         HashSet<int> Row2 = new HashSet<int>() { 1, 4, 7 };
         HashSet<int> Row3 = new HashSet<int>() { 2, 5, 8 };
 
@@ -163,7 +163,7 @@ namespace Assets.Scripts.Gameplay
                     }
                 case 2:
                     {
-                        
+
                         break;
                     }
                 case 3:
@@ -353,7 +353,7 @@ namespace Assets.Scripts.Gameplay
                         }
                 }
             }
-            o  = p = c = n = 0;
+            o = p = c = n = 0;
         }
 
         GameObject PowerUp(SpawnObject spawn)
@@ -457,7 +457,7 @@ namespace Assets.Scripts.Gameplay
                     }
                 case 2:
                     {
-                        
+
                         if (coinbowcount <= 10) // een boog met coins is 5 muntjes, de max aantal bogen staat nu dus op 2
                         {
                             if (Bow1.Contains(spawncounter) && GroundSpawns[6].obj != Box && SpawnObstacles[0].obj != null && SpawnObstacles[0].obj != coin)
@@ -843,7 +843,7 @@ namespace Assets.Scripts.Gameplay
             int counter = 0;
             foreach (SpawnObject spawn in SpawnObstacles)
             {
-                if (spawn.alive)
+                if (spawn != null && spawn.alive && spawn.obj != null && spawn.loc != null && spawn.loc.position != null && spawn.loc.rotation != null)
                 {
                     //Debug.Log(counter.ToString() + " " + spawn.loc.transform.position.ToString());
                     GameObject spawned = Instantiate(spawn.obj, spawn.loc.position, spawn.loc.rotation) as GameObject;
@@ -853,16 +853,18 @@ namespace Assets.Scripts.Gameplay
             }
             foreach (SpawnObject spawn in GroundSpawns)
             {
-                if (spawn.alive)
+                if (spawn != null && spawn.alive && spawn.obj != null && spawn.loc != null && spawn.loc.position != null && spawn.loc.rotation != null)
                 {
+
                     GameObject spawned = Instantiate(spawn.obj, spawn.loc.position, spawn.loc.rotation) as GameObject;
                     spawned.transform.parent = GameObject.Find(transform.name + "/Spawner").transform;
                     counter++;
+
                 }
             }
             foreach (SpawnObject spawn in AirSpawnObstacles)
             {
-                if (spawn.alive)
+                if (spawn != null && spawn.alive && spawn.obj != null && spawn.loc != null && spawn.loc.position != null && spawn.loc.rotation != null)
                 {
                     GameObject spawned = Instantiate(spawn.obj, spawn.loc.position, spawn.loc.rotation) as GameObject;
                     spawned.transform.parent = GameObject.Find(transform.name + "/Spawner").transform;
@@ -870,7 +872,7 @@ namespace Assets.Scripts.Gameplay
             }
             foreach (SpawnObject spawn in BoxCoins)
             {
-                if (spawn.alive)
+                if (spawn != null && spawn.alive && spawn.obj != null && spawn.loc != null && spawn.loc.position != null && spawn.loc.rotation != null)
                 {
                     GameObject spawned = Instantiate(spawn.obj, spawn.loc.position, spawn.loc.rotation) as GameObject;
                     spawned.transform.parent = GameObject.Find(transform.name + "/Spawner").transform;
@@ -878,10 +880,12 @@ namespace Assets.Scripts.Gameplay
             }
             foreach (SpawnObject spawn in AirSpawns)
             {
-                if (spawn.alive)
+                if (spawn != null && spawn.alive && spawn.obj != null && spawn.loc != null && spawn.loc.position != null && spawn.loc.rotation != null)
                 {
+
                     GameObject spawned = Instantiate(spawn.obj, spawn.loc.position, spawn.loc.rotation) as GameObject;
                     spawned.transform.parent = GameObject.Find(transform.name + "/Spawner").transform;
+
                 }
             }
             foreach (GameObject go in GameObject.FindObjectsOfType(typeof(GameObject)))

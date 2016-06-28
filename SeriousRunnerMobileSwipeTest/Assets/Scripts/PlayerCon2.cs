@@ -13,6 +13,13 @@ public class PlayerCon2 : MonoBehaviour
 {
     public AudioSource audio;
 
+    // Score Modifiers
+    public int baseScore;
+    public float timeModifier;
+    public float coinModifier;
+    public float obstacleModifier;
+
+
     //Movement
     public Direction currentDirection;
     public float speed;
@@ -91,9 +98,12 @@ public class PlayerCon2 : MonoBehaviour
     public Text TimeText;
     public Text scoreText;
     public Text obstacleText;
+    public Text coinFinishText;
+    public Text TimeFinishText;
+    public Text scoreFinishText;
+    public Text obstacleFinishText;
     private float seconds;
     private float minutes;
-    private float score;
     public int coins;
     public int obstacles;
 
@@ -108,6 +118,7 @@ public class PlayerCon2 : MonoBehaviour
     private CharacterController controller;
 
     // HeroicLabs
+    private Guid activeSEP = new Guid("A773A316-821C-44A9-B0CD-7BFAEA17E556");
     public string heroicLabsId;
     public string leaderboardsId;
     private Replay replay;
@@ -615,8 +626,14 @@ public class PlayerCon2 : MonoBehaviour
             animator.Play("Wary");
             finished = true;
             FinishPanel.FadeIn();
-            score = GetFinalScore();
-            scoreText.text = "Score: " + score.ToString();
+            int score = GetFinalScore();
+
+            double obstacleResult = Math.Round(obstacles * obstacleModifier, 1);
+            obstacleFinishText.text = string.Format("= {0} x {1} = {2}", obstacles, Math.Round(obstacleModifier, 1), obstacleResult);
+            double coinResult = Math.Round(coins * coinModifier, 1);
+            coinFinishText.text = string.Format("= {0} x {1} = {2}", coins, Math.Round(coinModifier, 1), coinResult);
+            TimeFinishText.text = string.Format("= {0:00}:{1:00} = {2}", minutes, Mathf.Floor(seconds), score - obstacleResult - coinResult);
+            scoreFinishText.text = string.Format("Score = {0}", score);
 
             if (MPScript.Data.Match != null)
             {
@@ -639,7 +656,7 @@ public class PlayerCon2 : MonoBehaviour
                     { "coins", coins }
                 });
                 foreach (Player player in MPScript.Data.ChallengedPlayers)
-                    APIController.SaveMatch(Mixpanel.DistinctID, (int)score, player.PlayerId, replayId, GlobalRandom.Seed);
+                    APIController.SaveMatch(Mixpanel.DistinctID, score, player.PlayerId, replayId, GlobalRandom.Seed);
             }
             else
             {
@@ -651,6 +668,7 @@ public class PlayerCon2 : MonoBehaviour
                 });
                 MPScript.Data.SessionClient.UpdateLeaderboard(leaderboardsId, (long)score, onLeaderboardUpdated, onError);
             }
+            APIController.IncrementSEP(activeSEP, coins);
             MPScript.Data.Clean();
         }
     }
@@ -673,6 +691,11 @@ public class PlayerCon2 : MonoBehaviour
     public void SetCoinText()
     {
         coinText.text = coins.ToString();
+    }
+
+    public void SetObstacleText()
+    {
+        obstacleText.text = obstacles.ToString();
     }
 
     public void TurnMade(Turn t)
@@ -868,8 +891,12 @@ public class PlayerCon2 : MonoBehaviour
         return new Vector3(transform.position.x, transform.position.y, transform.position.z);
     }
 
-    public float GetFinalScore()
+    public int GetFinalScore()
     {
-        return (500 - ((minutes * 60) + Mathf.Floor(seconds))) + (coins * 2) + (obstacles * 2);
+        float finalScore = baseScore;
+        finalScore += timeModifier * ((minutes * 60) + seconds);
+        finalScore += coinModifier * coins;
+        finalScore += obstacleModifier * obstacles;
+        return Mathf.RoundToInt(finalScore);
     }
 }

@@ -28,7 +28,11 @@ public class Obstacle : MonoBehaviour {
             playerCon.speed = 1;
             playerCon.animator.Play("Damage");
         }
-        gameObject.SetActive(false);
-        playerCon.obstacles += 1;
+        else
+        {
+            playerCon.obstacles += 1;
+            playerCon.SetObstacleText();
+        }
+        gameObject.SetActive(false);    
     }
 }
