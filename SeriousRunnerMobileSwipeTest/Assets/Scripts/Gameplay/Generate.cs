@@ -27,10 +27,11 @@ namespace Assets.Scripts.Gameplay
 
         // Obstacles
         public GameObject CartoonCar;
+        public GameObject Jeep;
         public GameObject Box;
         public GameObject Scooter;
         public GameObject Hotdogtruck;
-        //public GameObject Jeep;
+        public GameObject Pizzatruck;
 
         // Powerups
         public GameObject Speed;
@@ -156,18 +157,34 @@ namespace Assets.Scripts.Gameplay
 
             switch (path) // hier kunnen zoveel routes worden toegevoegd als nodig, elke kan een individuele balancing hebben.
             {
-                case 1:
+                case 1: // Score = 500 - seconden + muntjesx2 + obstakelsx2
                     {
-                        R.Fill(79, 20, 1, 0); // De volgorde is (Obstakels, Powerups, Coins, Niks). Alles bij elkaar moet altijd in zijn totaliteit op 100% uitkomen, met 0% komt iets niet voor.
+                        R.Fill(20, 0, 5, 75); // Intro start ----> 1e splitsing
                         break;
                     }
                 case 2:
                     {
-
+                        R.Fill(40, 5, 5, 50); // Transition 1e splitsing ----> 2e splitsing
                         break;
                     }
                 case 3:
                     {
+                        R.Fill(35, 15, 15, 25); // Transition splitsing rechts van het spel waar middel en lang meeten, dit is het gemiddelde van middel en lang.
+                        break;
+                    }
+                case 4:
+                    {
+                        R.Fill(90, 0, 10, 0); // Short = super klein, geen powerups, ontzettend veel obstakels en een paar muntjes
+                        break;
+                    }
+                case 5:
+                    {
+                        R.Fill(60, 10, 10, 20); // Middle = middel lang, redelijke kans powerups, weinig kans muntjes, aardig wat obstakels
+                        break;
+                    }
+                case 6:
+                    {
+                        R.Fill(30, 5, 20, 45); // Long = Lange route, bijna geen obstakels, erg veel powerups, iets meer muntjes
                         break;
                     }
             }
@@ -652,8 +669,15 @@ namespace Assets.Scripts.Gameplay
                                         break;
                                     }
                             }
-                            //Debug.Log("Bewegende Auto");
-                            obstakel = CartoonCar;
+                            chance = GlobalRandom.Next(1, 101);
+                            if (chance <= 50)
+                            {
+                                obstakel = Jeep;
+                            }
+                            else
+                            {
+                                obstakel = CartoonCar;
+                            }
                         }
                         break;
                     }
@@ -706,7 +730,15 @@ namespace Assets.Scripts.Gameplay
                                                     break;
                                                 }
                                         }
-                                        obstakel = Hotdogtruck;
+                                        chance = GlobalRandom.Next(1, 101);
+                                        if (chance <= 50)
+                                        {
+                                            obstakel = Hotdogtruck;
+                                        }
+                                        else
+                                        {
+                                            obstakel = Pizzatruck;
+                                        }
                                         truckcount++;
                                     }
                                     else if (truckcount < 2)
@@ -751,7 +783,15 @@ namespace Assets.Scripts.Gameplay
                                                     break;
                                                 }
                                         }
-                                        obstakel = Hotdogtruck;
+                                        chance = GlobalRandom.Next(1, 101);
+                                        if (chance <= 50)
+                                        {
+                                            obstakel = Hotdogtruck;
+                                        }
+                                        else
+                                        {
+                                            obstakel = Pizzatruck;
+                                        }
                                         truckcount++;
                                     }
                                     else
@@ -895,12 +935,6 @@ namespace Assets.Scripts.Gameplay
                     Destroy(go);
                 }
             }
-        }
-        void OnTriggerEnter()
-        {
-            //SpawnObject moveable = Array.Find(SpawnObstacles, s => s.obj == CartoonCar);
-            //GameObject moveable = transform.FindChild.CompareTag("auto")
-            //var carobject = Physics.OverlapSphere(moveable.loc.position, )
         }
     }
 }
