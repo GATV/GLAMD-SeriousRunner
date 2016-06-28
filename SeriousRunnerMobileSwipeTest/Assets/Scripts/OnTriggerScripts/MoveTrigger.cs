@@ -16,17 +16,17 @@ namespace Assets.Scripts.OnTriggerScripts
 
         void OnTriggerEnter()
         {
-            if (!hasMoved && transform.FindChild("FreeCar(Clone)") != null)
+            if (!hasMoved && transform.FindChild("CarGoed(Clone)") != null)
             {
                 hasMoved = true;
-                moveableCar = transform.FindChild("FreeCar(Clone)").gameObject;
+                moveableCar = transform.FindChild("CarGoed(Clone)").gameObject;
                 StartMove();
                 
             }
-            if (!hasMoved && transform.FindChild("jeep(Clone)") != null)
+            if (!hasMoved && transform.FindChild("JeepGoed(Clone)") != null)
             {
                 hasMoved = true;
-                moveableCar = transform.FindChild("jeep(Clone)").gameObject;
+                moveableCar = transform.FindChild("JeepGoed(Clone)").gameObject;
                 StartMove();
             }
         }

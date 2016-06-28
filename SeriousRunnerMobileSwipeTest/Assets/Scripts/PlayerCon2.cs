@@ -108,6 +108,7 @@ public class PlayerCon2 : MonoBehaviour
     public int obstacles;
 
     public FadeInAndOut FinishPanel;
+    public FadeInAndOut HeaderPanel;
 
     public Button ButtonPause;
 
@@ -626,6 +627,7 @@ public class PlayerCon2 : MonoBehaviour
             animator.Play("Wary");
             finished = true;
             FinishPanel.FadeIn();
+            HeaderPanel.FadeOut();
             int score = GetFinalScore();
 
             double obstacleResult = Math.Round(obstacles * obstacleModifier, 1);

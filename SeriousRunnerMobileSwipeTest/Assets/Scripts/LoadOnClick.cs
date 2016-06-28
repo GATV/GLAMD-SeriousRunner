@@ -46,7 +46,7 @@ public class LoadOnClick : MonoBehaviour
 
     private IEnumerator LoadNewScene()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
 
         if (scene == 1)
             MPScript.Data.SkipLogin = true;
